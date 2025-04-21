@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="InsuranceDashboard">
+        <section class="section insurance_dashboard">
+            <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-4 mt32 mb16">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-5">
+                            <h4 class="section-header">Insurance Details</h4>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 total-insurance">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-general">
+                                        <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-general svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z" fill="currentColor"/><path
+                                                d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+                                                fill="currentColor"/><path
+                                                d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+                                                fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                        </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="total_insurance">0</span>
+                                    <span class="text-muted fw-bold mt-1">Total</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-4 col-sm-6 running-insurance">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-warning">
+                                        <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-warning svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.6 7C12 7 11.6 6.6 11.6 6V3C11.6 2.4 12 2 12.6 2C13.2 2 13.6 2.4 13.6 3V6C13.6 6.6 13.2 7 12.6 7ZM10 7.59998C10.5 7.29998 10.6 6.69995 10.4 6.19995L9 3.80005C8.7 3.30005 8.10001 3.20002 7.60001 3.40002C7.10001 3.70002 7.00001 4.30005 7.20001 4.80005L8.60001 7.19995C8.80001 7.49995 9.1 7.69995 9.5 7.69995C9.7 7.69995 9.9 7.69998 10 7.59998ZM8 9.30005C8.3 8.80005 8.10001 8.20002 7.60001 7.90002L5.5 6.69995C5 6.39995 4.40001 6.59998 4.10001 7.09998C3.80001 7.59998 4 8.2 4.5 8.5L6.60001 9.69995C6.80001 9.79995 6.90001 9.80005 7.10001 9.80005C7.50001 9.80005 7.9 9.70005 8 9.30005ZM7.20001 12C7.20001 11.4 6.80001 11 6.20001 11H4C3.4 11 3 11.4 3 12C3 12.6 3.4 13 4 13H6.20001C6.70001 13 7.20001 12.6 7.20001 12Z" fill="currentColor"/><path
+                                                opacity="0.3"
+                                                d="M17.4 5.5C17.4 6.1 17 6.5 16.4 6.5C15.8 6.5 15.4 6.1 15.4 5.5C15.4 4.9 15.8 4.5 16.4 4.5C17 4.5 17.4 5 17.4 5.5ZM5.80001 17.1L7.40001 16.1C7.90001 15.8 8.00001 15.2 7.80001 14.7C7.50001 14.2 6.90001 14.1 6.40001 14.3L4.80001 15.3C4.30001 15.6 4.20001 16.2 4.40001 16.7C4.60001 17 4.90001 17.2 5.30001 17.2C5.50001 17.3 5.60001 17.2 5.80001 17.1ZM8.40001 20.2C8.20001 20.2 8.10001 20.2 7.90001 20.1C7.40001 19.8 7.3 19.2 7.5 18.7L8.30001 17.3C8.60001 16.8 9.20002 16.7 9.70002 16.9C10.2 17.2 10.3 17.8 10.1 18.3L9.30001 19.7C9.10001 20 8.70001 20.2 8.40001 20.2ZM12.6 21.2C12 21.2 11.6 20.8 11.6 20.2V18.8C11.6 18.2 12 17.8 12.6 17.8C13.2 17.8 13.6 18.2 13.6 18.8V20.2C13.6 20.7 13.2 21.2 12.6 21.2ZM16.7 19.9C16.4 19.9 16 19.7 15.8 19.4L15.2 18.5C14.9 18 15.1 17.4 15.6 17.1C16.1 16.8 16.7 17 17 17.5L17.6 18.4C17.9 18.9 17.7 19.5 17.2 19.8C17 19.9 16.8 19.9 16.7 19.9ZM19.4 17C19.2 17 19.1 17 18.9 16.9L18.2 16.5C17.7 16.2 17.6 15.6 17.8 15.1C18.1 14.6 18.7 14.5 19.2 14.7L19.9 15.1C20.4 15.4 20.5 16 20.3 16.5C20.1 16.8 19.8 17 19.4 17ZM20.4 13H19.9C19.3 13 18.9 12.6 18.9 12C18.9 11.4 19.3 11 19.9 11H20.4C21 11 21.4 11.4 21.4 12C21.4 12.6 20.9 13 20.4 13ZM18.9 9.30005C18.6 9.30005 18.2 9.10005 18 8.80005C17.7 8.30005 17.9 7.70002 18.4 7.40002L18.6 7.30005C19.1 7.00005 19.7 7.19995 20 7.69995C20.3 8.19995 20.1 8.79998 19.6 9.09998L19.4 9.19995C19.3 9.19995 19.1 9.30005 18.9 9.30005Z"
+                                                fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="running_insurance">0</span>
+                                    <span class="text-muted fw-bold mt-1">Running</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 expired-insurance">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-success">
+                                        <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-success svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19Z" fill="currentColor"/><path
+                                                d="M21 5H2.99999C2.69999 5 2.49999 5.10005 2.29999 5.30005L11.2 13.3C11.7 13.7 12.4 13.7 12.8 13.3L21.7 5.30005C21.5 5.10005 21.3 5 21 5Z"
+                                                fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="expired_insurance">0</span>
+                                    <span class="text-muted fw-bold mt-1">Expired</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4 mt32 mb16">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-5">
+                            <h4 class="section-header">Claim Details</h4>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 total-claim">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-info">
+                                        <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-info svg-icon-muted svg-icon-2hx"><svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M19 3.40002C18.4 3.40002 18 3.80002 18 4.40002V8.40002H14V4.40002C14 3.80002 13.6 3.40002 13 3.40002C12.4 3.40002 12 3.80002 12 4.40002V8.40002H8V4.40002C8 3.80002 7.6 3.40002 7 3.40002C6.4 3.40002 6 3.80002 6 4.40002V8.40002H2V4.40002C2 3.80002 1.6 3.40002 1 3.40002C0.4 3.40002 0 3.80002 0 4.40002V19.4C0 20 0.4 20.4 1 20.4H19C19.6 20.4 20 20 20 19.4V4.40002C20 3.80002 19.6 3.40002 19 3.40002ZM18 10.4V13.4H14V10.4H18ZM12 10.4V13.4H8V10.4H12ZM12 15.4V18.4H8V15.4H12ZM6 10.4V13.4H2V10.4H6ZM2 15.4H6V18.4H2V15.4ZM14 18.4V15.4H18V18.4H14Z" fill="currentColor"/><path
+                                                d="M19 0.400024H1C0.4 0.400024 0 0.800024 0 1.40002V4.40002C0 5.00002 0.4 5.40002 1 5.40002H19C19.6 5.40002 20 5.00002 20 4.40002V1.40002C20 0.800024 19.6 0.400024 19 0.400024Z"
+                                                fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                        </span>
+                                    </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="total_claim">0</span>
+                                    <span class="text-muted fw-bold mt-1">Total</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 submit-claim">
+                      <div class="card card-xl-stretch mb-xl-8">
+                                <!--begin::Body-->
+                          <div class="card-body p-0">
+                              <div class="d-flex flex-stack card-p flex-grow-1">
+                                  <span class="symbol symbol-50px me-2">
+                                      <span class="symbol-label bg-light-general">
+                                          <!--begin::Svg Icon -->
+                                          <span class="svg-icon svg-icon-general svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor"/><path
+                                                  d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L10 13.1V10.1C10 9.50001 9.6 9.10001 9 9.10001H6L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8ZM16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.2 11.5 15.5 12.3 15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L14 13.5V16.5C14 17.1 14.4 17.5 15 17.5H18L16.7 16.2Z"
+                                                  fill="currentColor"/><path opacity="0.3"
+                                                                             d="M12 16.8C11 16.8 10.2 16.4 9.5 15.8C8.8 15.1 8.5 14.3 8.5 13.3C8.5 12.8 8.59999 12.3 8.79999 11.9L7.29999 10.4C6.79999 11.3 6.5 12.2 6.5 13.3C6.5 14.8 7.10001 16.2 8.10001 17.2C9.10001 18.2 10.5 18.8 12 18.8C12.6 18.8 13 18.3 13 17.8C13 17.2 12.6 16.8 12 16.8Z"
+                                                                             fill="currentColor"/><path opacity="0.3"
+                                                                                                        d="M15.5 13.3C15.5 13.8 15.4 14.3 15.2 14.7L16.7 16.2C17.2 15.3 17.5 14.4 17.5 13.3C17.5 11.8 16.9 10.4 15.9 9.39999C14.9 8.39999 13.5 7.79999 12 7.79999C11.4 7.79999 11 8.19999 11 8.79999C11 9.39999 11.4 9.79999 12 9.79999C12.9 9.79999 13.8 10.2 14.5 10.8C15.1 11.5 15.5 12.4 15.5 13.3Z"
+                                                                                                        fill="currentColor"/></svg></span>
+                                          <!--end::Svg Icon-->
+                                      </span>
+                                  </span>
+                                  <div class="d-flex flex-column text-end">
+                                      <span class="text-dark fw-bolder fs-2" id="submit_claim">0</span>
+                                      <span class="text-muted fw-bold mt-1">Submit</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <!--end::Body-->
+                      </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 approved-claim">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-success">
+                                        <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-success svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM11.7 17.7L16 14C16.4 13.6 16.4 12.9 16 12.5C15.6 12.1 15.4 12.6 15 13L11 16L9 15C8.6 14.6 8.4 14.1 8 14.5C7.6 14.9 8.1 15.6 8.5 16L10.3 17.7C10.5 17.9 10.8 18 11 18C11.2 18 11.5 17.9 11.7 17.7Z" fill="currentColor"/><path
+                                                d="M10.4343 15.4343L9.25 14.25C8.83579 13.8358 8.16421 13.8358 7.75 14.25C7.33579 14.6642 7.33579 15.3358 7.75 15.75L10.2929 18.2929C10.6834 18.6834 11.3166 18.6834 11.7071 18.2929L16.25 13.75C16.6642 13.3358 16.6642 12.6642 16.25 12.25C15.8358 11.8358 15.1642 11.8358 14.75 12.25L11.5657 15.4343C11.2533 15.7467 10.7467 15.7467 10.4343 15.4343Z"
+                                                fill="currentColor"/><path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z"
+                                                                           fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="approved_claim">0</span>
+                                    <span class="text-muted fw-bold mt-1">Approved</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4 mt32 mb16">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-5">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 not-approved-claim">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-danger">
+                                        <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-danger svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M5 22H19C19.6 22 20 21.6 20 21V8L14 2H5C4.4 2 4 2.4 4 3V21C4 21.6 4.4 22 5 22Z" fill="currentColor"/><path
+                                                d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/><rect
+                                                x="7.55518" y="16.7585" width="10.144" height="2" rx="1"
+                                                transform="rotate(-45 7.55518 16.7585)" fill="currentColor"/><rect
+                                                x="9.0174" y="9.60327" width="10.0952" height="2" rx="1"
+                                                transform="rotate(45 9.0174 9.60327)" fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                        </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="not_approved_claim">0</span>
+                                    <span class="text-muted fw-bold mt-1">Not Approved</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4 mt32 mb16">
+                    <div class="row">
+                        <div class="col-6 col-sm-12 col-md-5">
+                            <h4 class="section-header">Other Stats</h4>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 res-partner-agent">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <!--begin::Body-->
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-stack card-p flex-grow-1">
+                                <span class="symbol symbol-50px me-2">
+                                    <span class="symbol-label bg-light-success">
+                                             <!--begin::Svg Icon -->
+                                        <span class="svg-icon svg-icon-success svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z" fill="currentColor"/><rect
+                                                opacity="0.3" x="14" y="4" width="4" height="4" rx="2"
+                                                fill="currentColor"/><path
+                                                d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z"
+                                                fill="currentColor"/><rect opacity="0.3" x="6" y="5" width="6"
+                                                                           height="6" rx="3" fill="currentColor"/></svg></span>
+                                        <!--end::Svg Icon-->
+                                        </span>
+                                </span>
+                                <div class="d-flex flex-column text-end">
+                                    <span class="text-dark fw-bolder fs-2" id="res_partner_agent">0</span>
+                                    <span class="text-muted fw-bold mt-1">Agents</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 insurance-category">
+                     <div class="card card-xl-stretch mb-xl-8">
+                            <!--begin::Body-->
+                         <div class="card-body p-0">
+                                <div class="d-flex flex-stack card-p flex-grow-1">
+                                    <span class="symbol symbol-50px me-2">
+                                        <span class="symbol-label bg-light-info">
+                                            <!--begin::Svg Icon-->
+                                            <span class="svg-icon svg-icon-info svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z" fill="currentColor"/><rect
+                                                    x="7" y="17" width="6" height="2" rx="1" fill="currentColor"/><rect
+                                                    x="7" y="12" width="10" height="2" rx="1" fill="currentColor"/><rect
+                                                    x="7" y="7" width="6" height="2" rx="1" fill="currentColor"/><path
+                                                    d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor"/></svg></span>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                    </span>
+                                    <div class="d-flex flex-column text-end">
+                                        <span class="text-dark fw-bolder fs-2" id="insurance_category">0</span>
+                                        <span class="text-muted fw-bold mt-1">Insurance Categories</span>
+                                    </div>
+                                </div>
+                         </div>
+                         <!--end::Body-->
+                     </div>
+                </div>
+                <div class="col-md-12 mb-4 mt32 mb16">
+                    <div class="row">
+                        <div class="col-6 col-sm-12 col-md-5">
+                            <h4 class="section-header">Insurance Graph</h4>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-full mt16 mb16">
+                        <h5 class="mb16">Claim Status</h5>
+                        <div id="claim_approve_not_approve">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-full mt16 mb16">
+                        <h5 class="mb16">Insurance Status</h5>
+                        <div id="insurance_state">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-full mt16 mb16">
+                        <h5 class="mb16">Top 5 Agents</h5>
+                        <div id="insurance_top_agent">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-full mt16 mb16">
+                        <h5 class="mb16">Customers Gender</h5>
+                        <div id="customer_gender">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </t>
+</templates>

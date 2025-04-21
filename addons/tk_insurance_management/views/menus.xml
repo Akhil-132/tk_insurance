@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="main_menu_insurance_management" name="Insurance"
+                  web_icon="tk_insurance_management,static/description/icon.png"/>
+        <menuitem id="menu_insurance_management"
+                  name="Dashboard"
+                  sequence="0"
+                  action="action_insurance_dashboard"
+                  parent="main_menu_insurance_management"/>
+ 
+        <menuitem id="menu_res_partner_agent"
+                  name="Agents"
+                  parent="main_menu_insurance_management"
+                  action="action_res_partner_agent"
+                  sequence="1"/>
+        <!-- <menuitem id="menu_insurance_information"
+                  name="Insurances"
+                  parent="main_menu_insurance_management"
+                  action="insurance_information_action"
+                  sequence="2"/> -->
+        <menuitem id="menu_claim_information"
+                  name="Claims"
+                  parent="main_menu_insurance_management"
+                  action="claim_information_action"
+                  sequence="3"/>
+        <menuitem id="menu_res_partner_customers"
+                  name="Customers"
+                  parent="main_menu_insurance_management"
+                  action="contacts.action_contacts"
+                  sequence="4"/>
+ 
+        <menuitem id="menu_configuration" name="Configurations" parent="main_menu_insurance_management"/>
+        <menuitem id="menu_insurance_category"
+                  name="Categories"
+                  parent="menu_configuration"
+                  action="action_insurance_category"
+                  sequence="1"/>
+        <menuitem id="menu_insurance_insurance_sub_category"
+                  name="Sub Categories"
+                  parent="menu_configuration"
+                  action="action_insurance_sub_category"
+                  sequence="2"/>
+        <menuitem id="menu_insurance_policy"
+                  name="Insurance Rates"
+                  parent="menu_configuration"
+                  action="action_insurance_policy"
+                  sequence="3"/>
+        <menuitem id="menu_insurance_time_period"
+                  name="Insurance Time Period"
+                  parent="menu_configuration"
+                  action="action_insurance_time_period"
+                  sequence="4"/>
+        <menuitem id="menu_insurance_nominee"
+                  name="Insurance Nominees"
+                  parent="menu_configuration"
+                  action="action_insurance_nominee"
+                  sequence="5"/>
+        <menuitem id="menu_insurance_buying_for"
+                  name="Insurance Buying For"
+                  parent="menu_configuration"
+                  action="action_insurance_buying_for"
+                  sequence="6"/>
+        <!-- <menuitem id="menu_insurance_testnominee"
+                  name="Insurance Test Nominees"
+                  parent="menu_configuration"
+                  action="action_insurance_testnominee"
+                  sequence="7"/> -->
+ 
+                      <menuitem id="menu_insurance_root" name="Insurance" sequence="7"/>
+    <menuitem id="menu_insurance_brand_name" name="Brand Names" parent="menu_insurance_root" action="action_brand_name"/>
+    <menuitem id="menu_insurance_brand_model" name="Brand Models" parent="menu_insurance_root" action="action_brand_model"/>
+    <menuitem id="menu_insurance_brand_variant" name="Brand Variants" parent="menu_insurance_root" action="action_brand_variant"/>
+    <menuitem id="menu_insurance_company_name" name="Company Names" parent="menu_insurance_root" action="action_company_name"/>
+    <menuitem id="menu_insurance_vehicle_type" name="Vehicle Types" parent="menu_insurance_root" action="action_vehicle_type"/>
+    <menuitem id="menu_insurance_cylinder_type" name="Cylinder Types" parent="menu_insurance_root" action="action_cylinder_type"/>
+    <menuitem id="menu_insurance_area_covered" name="Area Covered" parent="menu_insurance_root" action="action_area_covered"/>
+    <menuitem id="menu_insurance_nationality" name="Nationality" parent="menu_insurance_root" action="action_nationality"/>
+    <menuitem id="menu_insurance_upload"
+              name="Upload Brands"
+              parent="menu_insurance_root"
+              action="action_insurance_brand_upload"/>
+ 
+    <!-- <menuitem id="menu_revenue_bills"
+          name="Revenue Bills"
+          parent="account.menu_finance"
+          sequence="20"
+          action="action_revenue_bills"
+          groups="account.group_account_invoice"
+        /> -->
+ 
+    <menuitem id="menu_insurance_revenue"
+              name="Revenue Records"
+              parent="main_menu_insurance_management"
+              sequence="20"
+              action="action_insurance_revenue"
+        />
+    <menuitem id="menu_insurance_revenue_sub"
+              name="Revenue Records"
+              parent="menu_insurance_revenue"
+              action="action_insurance_revenue"
+              sequence="30"/>
+ 
+    <menuitem id="menu_bills"
+                  name="SP Bills"
+                  parent="account.menu_finance"
+                  sequence="10"/>
+ 
+        <!-- 🔹 SP Bills -->
+        <menuitem id="menu_sp_bills"
+                  name="SP Bills"
+                  parent="menu_bills"
+                  action="action_sp_bills"
+                  sequence="4"/>
+ 
+<!-- Main Menu: Rates -->
+    <menuitem id="main_menu_insurance_rates" name="Insurance Rates"
+            parent="main_menu_insurance_management"
+            sequence="4"/>
+ 
+    <!-- Submenu: Third-Party Rate -->
+    <menuitem id="menu_third_party_insurance" name="Third-Party Rate"
+            parent="main_menu_insurance_rates"
+            action="action_third_party_insurance"
+            sequence="1"/>
+ 
+    <!-- Submenu: Comprehensive Rate -->
+    <menuitem id="menu_comprehensive_insurance" name="Comprehensive Rate"
+            parent="main_menu_insurance_rates"
+            action="action_comprehensive_insurance"
+            sequence="2"/>
+ 
+<!-- Main Menu: Rates -->
+    <menuitem id="main_menu_insurance_issue" name="Insurance Policies"
+            parent="main_menu_insurance_management"
+            sequence="4"/>
+ 
+    <!-- Submenu: Third-Party Rate -->
+    <menuitem id="menu_third_party_insurance_issue" name="Third-Party Policy"
+            parent="main_menu_insurance_issue"
+            action="action_third_party_insurance_issue"
+            sequence="1"/>
+ 
+    <!-- Submenu: Comprehensive Rate -->
+    <menuitem id="menu_comprehensive_insurance_issue" name="Comprehensive Policy"
+            parent="main_menu_insurance_issue"
+            action="action_comprehensive_insurance_issue"
+            sequence="2"/>
+       
+    </data>
+</odoo>
+ 

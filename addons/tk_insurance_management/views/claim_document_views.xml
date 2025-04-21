@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="claim_documents_view_form" model="ir.ui.view">
+            <field name="name">claim.documents.view.form</field>
+            <field name="model">claim.documents</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Claim Document">
+                            <group>
+                                <field name="claim_document_type_id"/>
+                            </group>
+                            <group>
+                                <field name="file_name" invisible="1"/>
+                                <field name="avatar" filename="file_name" widget="binary"/>
+                                <field name="state" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="claim_documents_tree_view" model="ir.ui.view">
+            <field name="name">claim.documents.tree.view</field>
+            <field name="model">claim.documents</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="claim_document_type_id"/>
+                    <field name="file_name" invisible="1"/>
+                    <field name="avatar" filename="file_name" widget="binary"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'verified'"
+                           decoration-danger="state == 'rejected'"/>
+                </tree>
+            </field>
+        </record>
+        <record id="claim_documents_search_view" model="ir.ui.view">
+            <field name="name">claim.documents.search.view</field>
+            <field name="model">claim.documents</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="claim_document_type_id"/>
+                    <group string="Group By">
+                        <filter name="claim_document_type_id" string="Claim Document Type"
+                                context="{'group_by': 'claim_document_type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_claim_documents" model="ir.actions.act_window">
+            <field name="name">Claim Documents</field>
+            <field name="res_model">claim.documents</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+    </data>
+</odoo>

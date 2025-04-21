@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="insured_document_type_tree_view" model="ir.ui.view">
+            <field name="name">insured.document.type.tree.view</field>
+            <field name="model">insured.document.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="insured_document_type"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_insured_document_type" model="ir.actions.act_window">
+            <field name="name">Insured Document Type</field>
+            <field name="res_model">insured.document.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

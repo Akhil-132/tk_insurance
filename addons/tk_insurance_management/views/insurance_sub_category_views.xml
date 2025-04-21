@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="insurance_sub_category_form_view" model="ir.ui.view">
+            <field name="name">insurance.sub.category.form.view</field>
+            <field name="model">insurance.sub.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="insurance_category_id"/>
+                            </group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="insurance_sub_category_tree_view" model="ir.ui.view">
+            <field name="name">insurance.sub.category.tree.view</field>
+            <field name="model">insurance.sub.category</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="insurance_category_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="insurance_sub_category_search_view" model="ir.ui.view">
+            <field name="name">insurance.sub.category.search.view</field>
+            <field name="model">insurance.sub.category</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <group string="Group By">
+                        <filter name="insurance_category_id" string="Insurance category"
+                                context="{'group_by': 'insurance_category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_insurance_sub_category" model="ir.actions.act_window">
+            <field name="name">Policy Sub Category</field>
+            <field name="res_model">insurance.sub.category</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="context">{'search_default_insurance_category_id': 1}</field>
+        </record>
+    </data>
+</odoo>

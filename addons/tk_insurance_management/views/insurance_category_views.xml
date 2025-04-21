@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="insurance_category_form_view" model="ir.ui.view">
+            <field name="name">insurance.category.form.view</field>
+            <field name="model">insurance.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Insurance Category">
+                                <field name="category"/>
+                            </group>
+                            <group string="Category Code">
+                                <field name="category_code"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="life_insurance" string="Life Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'life')]}">
+                                <group string="Insured Details">
+                                    <group>
+                                        <field name="life_insured_age" string="Insured Age"/>
+                                    </group>
+                                    <group>
+                                        <field name="desired_death_amount"/>
+                                        <field name="life_deductible_amount" string="Deductible Amount"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Length of Coverage Terms
+                                </h6>
+                                <field name="length_of_coverage_term"/>
+                                <h6>
+                                    Health History
+                                </h6>
+                                <field name="life_health_history"/>
+                                <h6>
+                                    Occupation and Hobbies"
+                                </h6>
+                                <field name="occupation_and_hobbies"/>
+                                <h6>
+                                    Family Medical History
+                                </h6>
+                                <field name="family_medical_history"/>
+                            </page>
+                            <page name="health_insurance" string="Health Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'health')]}">
+                                <group>
+                                    <group>
+                                        <field name="health_insured_age" string="Insured Age"/>
+                                    </group>
+                                    <group>
+                                        <field name="desired_coverage_type" widget="radio"
+                                               options="{'horizontal': true}" string="Coverage Type"/>
+                                        <field name="health_deductible_amount" string="Deductible Amount"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Out of Pocket Maximum
+                                </h6>
+                                <field name="out_of_pocket_maximum"/>
+                                <h6>
+                                    Health History
+                                </h6>
+                                <field name="health_history_of_insured"/>
+                                <h6>
+                                    Prescription Drug Coverage
+                                </h6>
+                                <field name="drug_coverage"/>
+                                <h6>
+                                    Preferred Healthcare Provider Network
+                                </h6>
+                                <field name="healthcare_provider_network"/>
+                            </page>
+                            <page name="property_insurance" string="Property Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'property')]}">
+                                <group string="Property Details">
+                                    <group>
+                                        <field name="construct_year"/>
+                                    </group>
+                                    <group>
+                                        <field name="property_value" string="Estimated Value"/>
+                                        <field name="property_damage_coverage"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Property Coverage Limits
+                                </h6>
+                                <field name="property_coverage_limits"/>
+                                <h6>
+                                    Construction Type and Materials
+                                </h6>
+                                <field name="construction_type_and_materials"/>
+                                <h6>
+                                    Special Features of the Property
+                                </h6>
+                                <field name="special_features_of_the_property"/>
+                                <h6>
+                                    Personal Property Inventory
+                                </h6>
+                                <field name="personal_property_inventory"/>
+                            </page>
+                            <page name="liability_insurance" string="Liability Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'liability')]}">
+                                <group string="Insured Details">
+                                    <group>
+                                        <field name="liability_coverage_type" widget="radio"
+                                               options="{'horizontal': true}" string="Coverage Type"/>
+                                    </group>
+                                    <group>
+                                        <field name="type_of_liability_risk" widget="radio"
+                                               options="{'horizontal': true}"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Desired Coverage Limits
+                                </h6>
+                                <field name="desired_coverage_limits"/>
+                                <h6>
+                                    Business Type and Operations (for Business Liability Insurance)
+                                </h6>
+                                <field name="business_type_and_operations"/>
+                            </page>
+                            <page name="disability_insurance" string="Disability Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'disability')]}">
+                                <group string="Insured Details">
+                                    <group>
+                                        <field name="income"/>
+                                    </group>
+                                    <group>
+                                        <field name="disability_deductible_amount" string="Deductible Amount"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Length of Coverage Period
+                                </h6>
+                                <field name="length_coverage_disability_period"/>
+                                <h6>
+                                    Health History
+                                </h6>
+                                <field name="disability_health_history"/>
+                                <h6>
+                                    Occupation and Hobbies
+                                </h6>
+                                <field name="occupation_and_hobbies"/>
+                            </page>
+                            <page name="travel_insurance" string="Travel Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'travel')]}">
+                                <group string="Travel Details">
+                                    <group>
+                                        <field name="types_of_coverage" widget="radio"/>
+                                    </group>
+                                    <group>
+                                        <field name="trip_coverage_amount"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Traveler Health History
+                                </h6>
+                                <field name="traveler_health_history"/>
+                            </page>
+                            <page name="pet_insurance" string="Pet Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'pet')]}">
+                                <group>
+                                    <group>
+                                        <field name="pet_desired_coverage_type" widget="radio"
+                                               options="{'horizontal': true}" string="Coverage Type"/>
+                                    </group>
+                                    <group>
+                                        <field name="exclusions" widget="radio" options="{'horizontal': true}"/>
+                                    </group>
+                                </group>
+                                <group string="Coverage Amount">
+                                    <group>
+                                        <field name="accident_coverage"/>
+                                    </group>
+                                    <group>
+                                        <field name="illness_coverage"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Coverage Limits
+                                </h6>
+                                <field name="pet_coverage_limits"/>
+                            </page>
+                            <page name="business_insurance" string="Business Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'business')]}">
+                                <group string="Insured Details">
+                                    <group>
+                                        <field name="business_desired_coverage_type" widget="radio"
+                                               string="Coverage Type"/>
+                                    </group>
+                                    <group>
+                                        <field name="business_property_value" string="Estimated Value"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Business Type and Operations
+                                </h6>
+                                <field name="business_type_operation"/>
+                                <h6>
+                                    Business Coverage Limits
+                                </h6>
+                                <field name="business_coverage_limits"/>
+                                <h6
+                                >Industry Specific Risks(Such as Malpractice Insurance for Healthcare Providers)
+                                </h6>
+                                <field name="industry_specific_risks"/>
+                            </page>
+                            <page name="vehicle_insurance" string="Vehicle Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'vehicle')]}">
+                                <group string="Vehicle Details">
+                                    <group>
+                                        <field name="coverage_type" widget="radio" options="{'horizontal': true}"
+                                               string="Coverage Type"/>
+                                    </group>
+                                </group>
+                                <h6>
+                                    Limitations as to Use
+                                </h6>
+                                <field name="limitation_as_to_use"/>
+                                <h6>
+                                    Limits of Liability
+                                </h6>
+                                <field name="limits_of_liability"/>
+                                <h6>
+                                    Deductibles under Section
+                                </h6>
+                                <field name="deductibles_under_section"/>
+                                <h6>
+                                    Special Conditions
+                                </h6>
+                                <field name="special_conditions"/>
+                                <h6>
+                                    Driving History
+                                </h6>
+                                <field name="driving_history"/>
+                            </page>
+                            <page name="vehicle_insurance_images" string="Vehicle Images"
+                                  attrs="{'invisible': [('category', '!=', 'vehicle')]}">
+                                <field name="vehicle_insurance_image_ids">
+                                    <kanban string="Kanban" class="">
+                                        <field name="id"/>
+                                        <field name="avatar"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="row oe_kanban_global_click"
+                                                     style="max-width: 380px !important; max-height: 380px !important;">
+                                                    <div class="col-12">
+                                                        <img t-att-src="kanban_image('vehicle.insurance.image', 'avatar', record.id.raw_value)"
+                                                             t-att-alt="name"
+                                                             style="margin-left: -9px; margin-right: 5px; margin-top: 5px;"
+                                                             width="350px"
+                                                             height="320px" class="img img-responsive"/>
+                                                    </div>
+                                                    <div class="oe_kanban_details" style="text-align: center;">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="insurance_category_tree_view" model="ir.ui.view">
+            <field name="name">insurance.category.tree.view</field>
+            <field name="model">insurance.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="category"/>
+                    <field name="category_code"/>
+                </tree>
+            </field>
+        </record>
+        <record id="insurance_category_search_view" model="ir.ui.view">
+            <field name="name">insurance.category.search.view</field>
+            <field name="model">insurance.category</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <group string="Group By">
+                        <filter name="category" string="Category"
+                                context="{'group_by': 'category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_insurance_category" model="ir.actions.act_window">
+            <field name="name">Policy Category</field>
+            <field name="res_model">insurance.category</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+    </data>
+</odoo>

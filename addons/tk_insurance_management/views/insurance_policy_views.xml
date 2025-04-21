@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+      <!-- Form view -->
+      <record id="insurance_policy_view_form" model="ir.ui.view">
+         <field name="name">insurance.policy.view.form</field>
+         <field name="model">insurance.policy</field>
+         <field name="arch" type="xml">
+            <form>
+               <sheet>
+                  <!-- Main Title -->
+                 
+                        <field name="policy_name" invisible="1"/>
+                  
+                  <div class="oe_title">
+                     <label for="company_name_id" />
+                     <h1>
+                        <field name="company_name_id"/>
+                     </h1>
+                  </div>
+                  <!-- Insurance Policy Group -->
+                  <group string="Insurance Policy">
+                   <group>
+                     <field name="policy_number"/>
+                     <field name="insurance_category_id" />
+                     <field name="insurance_sub_category_id" />
+                     <field name="insurance_sub_category_name" invisible="1"/>
+                     <field name="insurance_time_period_id" />
+                     <field name="duration" />
+                   </group>
+                  </group>
+
+                  <!-- Age Group -->
+                  <group string="Age Info">
+                   <group>
+                   <field name="owner_age_from"/>
+                   <field name="license_age_from"/>
+                   </group>
+                   <group>
+                   <field name="owner_age_to"/>
+                   <field name="license_age_to"/>
+                   </group>
+                  </group>
+                  
+                  <!-- Area Group -->
+                  <group string="Area" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                  <group>
+                  <field name="area_covered_id"/>
+                  </group>
+                  </group>
+
+                  <!-- Nationality Group -->
+                  <group string="Nationality" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                  <group>
+                  <field name="nationality"/>
+                  <field name="nationality_minimum"/>
+                  </group>
+                  <group>
+                  <field name="nationality_percent"/>
+                  </group>
+                  </group>
+
+                  <!-- Daynatrade Group -->
+                  <group string="Daynatrade Repair" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                     <group>
+                        <field name="daynatrade_premium"/>
+                        <field name="daynatrade_excess"/>
+                        <field name="daynatrade_driver"/>
+                        <field name="daynatrade_sum_assured_from"/>
+                     </group>
+                     <group>
+                        <field name="daynatrade_minimum"/>
+                        <field name="daynatrade_commission"/>
+                        <field name="daynatrade_passenger"/>
+                        <field name="daynatrade_sum_assured_to"/>
+                     </group>
+                  </group>
+
+                 
+                 <!-- Approved Workshop Rates Group -->
+                  <group string="Garage Repair" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                  <group>
+                  <field name="workshop_premium"/>
+                  <field name="workshop_excess"/>
+                  <field name="workshop_driver"/>
+                  <field name="workshop_sum_assured_from"/>
+                  </group>
+                  <group>
+                  <field name="workshop_minimum"/>
+                  <field name="workshop_commission"/>
+                  <field name="workshop_passenger"/>
+                  <field name="workshop_sum_assured_to"/>
+                  </group>
+                  </group>
+
+                  <!-- Approved Workshop Rates Group -->
+                  <group string="Agency Repair" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                  <group>
+                  <field name="agency_premium"/> 
+                  <field name="agency_excess"/>                  
+                  <field name="agency_driver"/>
+                  <field name="agency_year1" invisible="1"/>
+                  <field name="agency_year3" invisible="1"/>
+                  <field name="agency_year5" invisible="1"/>
+                  <field name="agency_sum_assured_from"/>
+                  </group>
+                  <group>
+                  <field name="agency_minimum"/>
+                  <field name="agency_commission"/>
+                  <field name="agency_passenger"/>
+                  <field name="agency_year2" invisible="1"/>
+                  <field name="agency_year4" invisible="1"/>
+                  <field name="agency_sum_assured_to"/>
+                  </group>
+                  </group>
+
+                  <!-- scheme rates- agency Group -->
+                  <group string="Scheme Agency Repair" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                  <group>
+                  <field name="scheme_agency_premium"/>
+                  <field name="scheme_agency_excess"/>
+                  <field name="scheme_agency_driver"/>
+                  <field name="scheme_agency_sum_assured_from"/>
+                  </group>
+                  <group>
+                  <field name="scheme_agency_minimum"/>
+                  <field name="scheme_agency_commission"/>
+                  <field name="scheme_agency_passenger"/>
+                  <field name="scheme_agency_sum_assured_to"/>
+                  </group>
+                  </group>                  
+
+                  <!-- scheme rates-non-agency Group -->
+                  <group string="Scheme Non Agency Repair" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                  <group>
+                  <field name="non_agency_premium"/>
+                  <field name="non_agency_excess"/>
+                  <field name="non_agency_driver"/>
+                  <field name="non_agency_sum_assured_from"/>
+                  </group>
+                  <group>
+                  <field name="non_agency_minimum"/>
+                  <field name="non_agency_commission"/>
+                  <field name="non_agency_passenger"/>
+                  <field name="non_agency_sum_assured_to"/>
+                  </group>
+                  </group>
+
+                  <!-- Optional Conditions Group -->
+                  <group string="Optional Conditions TPL" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}">
+                     <group>
+                        <field name="ambulance_fee"/>
+                        <!-- <field name="ambulance_fee_refund" string="Is Refundable"/> -->
+                        <field name="EVG"/>
+                        <field name="road_side_assistance_gold"/>
+                        <field name="road_side_assistance_silver"/>
+                        <field name="insurance_charge"/>
+                        <field name="cover_tpl"/>
+                     </group>
+                     <group>
+                        <field name="ambulance_fee_commission"/>
+                        <field name="EVG_commission"/>
+                        <field name="road_side_assistance_gold_commission"/>
+                        <field name="road_side_assistance_silver_commission"/>
+                        <field name="commission_insurance_charge"/>
+                        <field name="commission_cover_tpl"/>
+                     </group>
+                  </group>
+
+                  <group string="Optional Conditions Comprehensive" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                     <group>
+                        <field name="ambulance_fee"/>
+                        <!-- <field name="ambulance_fee_refund" string="Is Refundable"/> -->
+                        <field name="rent_a_car_5"/>
+                        <field name="rent_a_car_10"/>
+                        <field name="natural_perils"/>
+                        <field name="road_side_assistance_gold"/>
+                        <field name="road_side_assistance_silver"/>
+                        <field name="cover_tpl_od"/>
+                        <field name="cover_tpl"/>
+                        <field name="cover_tpl_od_tpl"/>
+                        <field name="EVG"/>           
+                        <field name="insurance_charge"/> 
+                        <field name="off_road_cover"/>
+                        <field name="gcc_cover"/>
+                     </group>
+                     <group>
+                        <field name="ambulance_fee_commission"/>
+                        <field name="rent_a_car_5_commission"/>
+                        <field name="rent_a_car_10_commission"/>
+                        <field name="natural_perils_commission"/>
+                        <field name="road_side_assistance_gold_commission"/>
+                        <field name="road_side_assistance_silver_commission"/>
+                        <field name="cover_tpl_od_commission"/>
+                        <field name="commission_cover_tpl"/>
+                        <field name="cover_tpl_od_tpl_commission"/>
+                        <field name="EVG_commission"/>           
+                        <field name="commission_insurance_charge"/> 
+                        <field name="off_road_cover_commission"/>
+                        <field name="gcc_cover_commission"/>
+                     </group>
+                  </group>                  
+                  <!-- Specifications and Rate Group -->
+                  <group string="Specifications and Rate">
+                   <group>
+                     <field name="vehicle_type_id"/>
+                     <field name="cylinder_type" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}"/>
+                     <field name="vehicle_ton" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}"/>
+                     <field name="driver"/>
+                  </group>
+                  <group>
+                  <field name="usage"/>
+                  <field name="doors" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}"/>
+                  <field name="passenger"/>
+                  </group>
+                  </group>
+                  <!-- Policy Provider Details Group -->
+                  <group string="Policy Provider Details" invisible="1">
+                     <field name="company_id" />
+                     <field name="phone" />
+                     <span class="o_form_label o_td_label" name="address_name">
+                        <strong>Address</strong>
+                     </span>
+                     <div class="o_address_format">
+                        <field name="street" placeholder="Street..." class="o_address_street" />
+                        <field name="street2" placeholder="Street 2..." class="o_address_street" />
+                        <field name="city" placeholder="City" class="o_address_city" />
+                        <field name="state_id" class="o_address_state" placeholder="State" options="{'no_create':True,'no_create_edit':True,'no_open':True}" />
+                        <field name="zip" placeholder="ZIP" class="o_address_zip" />
+                        <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_create':True,'no_create_edit':True,'no_open':True}" />
+                     </div>
+                  </group>
+                  <!-- Policy Document Group -->
+                  <group string="Policy Document">
+                     <group>
+                        <field name="file_name" invisible="1" />
+                        <field name="avatar" filename="file_name" widget="binary" />
+                     </group>
+                     <group>
+                        <field name="policy_amount" />
+                        <field name="currency_id" invisible="1" />
+                        <field name="commission_premium" />
+                     </group>
+                  </group>
+                  <!-- Notebook -->
+                  <notebook>
+                     <field name="category" invisible="1" />
+                     <!-- Life Insurance Page -->
+                     <page name="life_insurance" string="Life Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'life')]}">
+                        <group string="Insured Details">
+                           <field name="life_insured_age" />
+                           <field name="desired_death_amount" />
+                           <field name="life_deductible_amount" />
+                        </group>
+                        <field name="length_of_coverage_term" />
+                        <field name="life_health_history" />
+                        <field name="occupation_and_hobbies" />
+                        <field name="family_medical_history" />
+                     </page>
+                     <!-- Health Insurance Page -->
+                     <page name="health_insurance" string="Health Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'health')]}">
+                        <group>
+                           <group>
+                              <field name="health_insured_age" />
+                           </group>
+                           <group>
+                              <field name="desired_coverage_type" widget="radio" options="{'horizontal': true}" />
+                              <field name="health_deductible_amount" />
+                           </group>
+                        </group>
+                        <field name="out_of_pocket_maximum" />
+                        <field name="health_history_of_insured" />
+                        <field name="drug_coverage" />
+                        <field name="healthcare_provider_network" />
+                     </page>
+                     <!-- Other pages omitted for brevity -->
+                     <page name="property_insurance" string="Property Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'property')]}">
+                        <group string="Property Details">
+                           <group>
+                              <field name="construct_year" />
+                           </group>
+                           <group>
+                              <field name="property_value" string="Estimated Value" />
+                              <field name="property_damage_coverage" />
+                              <field name="company_id" invisible="1" />
+                              <field name="currency_id" invisible="1" />
+                           </group>
+                        </group>
+                        <h6>Property Coverage Limits</h6>
+                        <field name="property_coverage_limits" />
+                        <h6>Construction Type and Materials</h6>
+                        <field name="construction_type_and_materials" />
+                        <h6>Special Features of the Property</h6>
+                        <field name="special_features_of_the_property" />
+                        <h6>Personal Property Inventory</h6>
+                        <field name="personal_property_inventory" />
+                     </page>
+                     <page name="liability_insurance" string="Liability Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'liability')]}">
+                        <group string="Insured Details">
+                           <group>
+                              <field name="liability_coverage_type" widget="radio" options="{'horizontal': true}" string="Coverage Type" />
+                           </group>
+                           <group>
+                              <field name="type_of_liability_risk" widget="radio" options="{'horizontal': true}" />
+                           </group>
+                        </group>
+                        <h6>Desired Coverage Limits</h6>
+                        <field name="desired_coverage_limits" />
+                        <h6>Business Type and Operations (for Business Liability Insurance)</h6>
+                        <field name="business_type_and_operations" />
+                     </page>
+                     <page name="disability_insurance" string="Disability Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'disability')]}">
+                        <group string="Insured Details">
+                           <group>
+                              <field name="income" />
+                           </group>
+                           <group>
+                              <field name="disability_deductible_amount" string="Deductible Amount" />
+                              <field name="company_id" invisible="1" />
+                              <field name="currency_id" invisible="1" />
+                           </group>
+                        </group>
+                        <h6>Length of Coverage Period</h6>
+                        <field name="length_coverage_disability_period" />
+                        <h6>Health History</h6>
+                        <field name="disability_health_history" />
+                        <h6>Occupation and Hobbies</h6>
+                        <field name="occupation_and_hobbies" />
+                     </page>
+                     <page name="travel_insurance" string="Travel Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'travel')]}">
+                        <group string="Travel Details">
+                           <group>
+                              <field name="types_of_coverage" widget="radio" />
+                           </group>
+                           <group>
+                              <field name="trip_coverage_amount" />
+                              <field name="company_id" invisible="1" />
+                              <field name="currency_id" invisible="1" />
+                           </group>
+                        </group>
+                        <h6>Traveler Health History</h6>
+                        <field name="traveler_health_history" />
+                     </page>
+                     <page name="pet_insurance" string="Pet Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'pet')]}">
+                        <group>
+                           <group>
+                              <field name="pet_desired_coverage_type" widget="radio" options="{'horizontal': true}" />
+                           </group>
+                           <group>
+                              <field name="exclusions" widget="radio" options="{'horizontal': true}" />
+                           </group>
+                        </group>
+                        <group string="Coverage Amount">
+                           <group>
+                              <field name="accident_coverage" />
+                           </group>
+                           <group>
+                              <field name="illness_coverage" />
+                              <field name="company_id" invisible="1" />
+                              <field name="currency_id" invisible="1" />
+                           </group>
+                        </group>
+                        <h6>Coverage Limits</h6>
+                        <field name="pet_coverage_limits" nolabel="1" />
+                     </page>
+                     <page name="business_insurance" string="Business Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'business')]}">
+                        <group string="Insured Details">
+                           <group>
+                              <field name="business_desired_coverage_type" widget="radio" string="Coverage Type" />
+                           </group>
+                           <group>
+                              <field name="business_property_value" string="Estimated Value" />
+                              <field name="company_id" invisible="1" />
+                              <field name="currency_id" invisible="1" />
+                           </group>
+                        </group>
+                        <h6>Business Type and Operations</h6>
+                        <field name="business_type_operation" />
+                        <h6>Business Coverage Limits</h6>
+                        <field name="business_coverage_limits" />
+                        <h6>Industry Specific Risks(Such as Malpractice Insurance for Healthcare Providers)</h6>
+                        <field name="industry_specific_risks" />
+                     </page>
+                     <page name="vehicle_insurance" string="Vehicle Insurance Policy Details" attrs="{'invisible': [('category', '!=', 'vehicle')]}">
+                        <group string="Vehicle Details">
+                           <!-- <group>
+                              <field name="coverage_type" widget="radio" options="{'horizontal': true}" string="Coverage Type" />
+                           </group> -->
+                        </group>
+                        <h6>Limitations as to Use</h6>
+                        <field name="limitation_as_to_use" />
+                        <h6>Limits of Liability</h6>
+                        <field name="limits_of_liability" />
+                        <h6>Deductibles under Section</h6>
+                        <field name="deductibles_under_section" />
+                        <h6>Special Conditions</h6>
+                        <field name="special_conditions" />
+                        <h6>Driving History</h6>
+                        <field name="driving_history" />
+                     </page>
+                     <page name="vehicle_insurance_images" string="Vehicle Images" attrs="{'invisible': [('category', '!=', 'vehicle')]}">
+                        <field name="vehicle_insurance_image_ids">
+                           <kanban string="Kanban" class="">
+                              <field name="id" />
+                              <field name="avatar" />
+                              <templates>
+                                 <t t-name="kanban-box">
+                                    <div class="row oe_kanban_global_click" style="max-width: 380px !important; max-height: 380px !important;">
+                                       <div class="col-12">
+                                          <img t-att-src="kanban_image('vehicle.insurance.image', 'avatar', record.id.raw_value)" t-att-alt="name" style="margin-left: -9px; margin-right: 5px; margin-top: 5px;" width="350px" height="320px" class="img img-responsive" />
+                                       </div>
+                                       <div class="oe_kanban_details" style="text-align: center;">
+                                          <strong>
+                                             <field name="name" />
+                                          </strong>
+                                       </div>
+                                    </div>
+                                 </t>
+                              </templates>
+                           </kanban>
+                        </field>
+                     </page>
+                     <page name="terms_and_conditions" string="Terms &amp; Conditions">
+                        <field name="policy_terms_and_conditions" />
+                     </page>
+                  </notebook>
+               </sheet>
+            </form>
+         </field>
+      </record>
+      <!-- Tree view -->
+      <record id="insurance_policy_view_tree" model="ir.ui.view">
+         <field name="name">insurance.policy.view.tree</field>
+         <field name="model">insurance.policy</field>
+         <field name="arch" type="xml">
+            <tree>
+               <field name="policy_number" />
+               <field name="policy_name" invisible="1" />
+               <field name="company_name_id" string="Company Name"/>
+               <field name="insurance_category_id" />
+               <field name="insurance_sub_category_id" />
+               <field name="insurance_time_period_id" />
+               <field name="policy_amount" />
+               <field name="company_id" invisible="1" />
+               <field name="currency_id" invisible="1" />
+            </tree>
+         </field>
+      </record>
+      <!-- Action -->
+      <record id="action_insurance_policy" model="ir.actions.act_window">
+         <field name="name">Insurance Policy</field>
+         <field name="res_model">insurance.policy</field>
+         <field name="view_mode">tree,form</field>
+      </record>
+      <record id="insurance_policy_search_view" model="ir.ui.view">
+            <field name="name">insurance.policy.search.view</field>
+            <field name="model">insurance.policy</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="policy_number"/>
+                    <field name="company_name_id"/>
+                    <group string="Group By">
+                        <filter name="policy_number" string="Policy Number"
+                                context="{'group_by': 'policy_number'}"/>
+                        <filter name="company_name_id" string="Company Name"
+                                context="{'group_by': 'company_name_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="insurance_policy_action" model="ir.actions.act_window">
+            <field name="name">Insurance</field>
+            <field name="res_model">insurance.policy</field>
+            <field name="view_mode">tree,form,calendar,search,activity</field>
+    </record>
+         <record id="action_third_party_insurance" model="ir.actions.act_window">
+         <field name="name">Third-Party Insurance</field>
+         <field name="res_model">insurance.policy</field>
+         <field name="view_mode">tree,form</field>
+         <field name="domain">[('insurance_sub_category_name', '=', 'Third-Party Insurance')]</field>
+         <field name="context">{
+            'default_insurance_type': 'third_party',
+            'force_create': True,
+            'default_insurance_category_name': 'Motor Insurance',
+            'default_insurance_sub_category_name': 'Third-Party Insurance'
+         }</field>
+      </record>
+ 
+      <record id="action_comprehensive_insurance" model="ir.actions.act_window">
+         <field name="name">Comprehensive Insurance</field>
+         <field name="res_model">insurance.policy</field>
+         <field name="view_mode">tree,form</field>
+         <field name="domain">[('insurance_sub_category_name', '=', 'Comprehensive Insurance')]</field>
+         <field name="context">{
+            'default_insurance_type': 'comprehensive',
+            'force_create': True,
+            'default_insurance_category_name': 'Motor Insurance',
+            'default_insurance_sub_category_name': 'Comprehensive Insurance'
+         }</field>
+      </record>    
+   </data>
+</odoo>

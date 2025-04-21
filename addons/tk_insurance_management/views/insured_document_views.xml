@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="insured_documents_tree_view" model="ir.ui.view">
+            <field name="name">insured.documents.tree.view</field>
+            <field name="model">insured.documents</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="insured_info_id" invisible="1"/>
+                    <field name="insured_id"/>
+                    <field name="insured_document_type_id"/>
+                    <field name="file_name" invisible="1"/>
+                    <field name="avatar" filename="file_name" widget="binary"/>
+                </tree>
+            </field>
+        </record>
+        <record id="insured_documents_search_view" model="ir.ui.view">
+            <field name="name">insured.documents.search.view</field>
+            <field name="model">insured.documents</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="insured_document_type_id"/>
+                    <group string="Group By">
+                        <filter name="insured_document_type_id" string="Document Name"
+                                context="{'group_by':'insured_document_type_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_insured_documents" model="ir.actions.act_window">
+            <field name="name">Insured Documents</field>
+            <field name="res_model">insured.documents</field>
+            <field name="view_mode">tree,search</field>
+        </record>
+    </data>
+</odoo>

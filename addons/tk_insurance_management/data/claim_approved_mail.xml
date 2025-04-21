@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="insurance_policy_has_been_approved_mail_template" model="mail.template">
+            <field name="name">Insurance Policy Has Been Approved Mail Template</field>
+            <field name="model_id" ref="tk_insurance_management.model_claim_information"/>
+            <field name="subject">Congratulations! Your Insurance Policy Claim Has Been Approved</field>
+            <field name="email_from">{{object.company_id.email}}</field>
+            <field name="partner_to">{{object.insured_id.id}}</field>
+            <field name="body_html" type="html">
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            Dear Customer,
+                            <br/>
+                            <h4>
+                                <strong>
+                                    <t t-out="object.insured_id.name"/>
+                                </strong>
+                            </h4>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+                <p>
+                    We hope this email finds you well. We are pleased to inform you that your insurance policy claim has
+                    been approved. After careful evaluation of the provided information and necessary verifications, we
+                    have determined that your claim meets the eligibility criteria outlined in your policy.
+                </p>
+                <p>
+                    We understand the importance of a swift resolution, and we are committed to ensuring a seamless
+                    claims process. Therefore, we would like to provide you with the following details regarding your
+                    approved claim.
+                </p>
+                <hr/>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>
+                                Claim Reference Number:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.claim_number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy Number:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_id.insurance_number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_policy_id.policy_name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy Category:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_category_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy Sub Category:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_sub_category_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Date of Approval:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.claim_date"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Approved Amount:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="format_amount(object.amount_paid, object.currency_id)"/>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+                <p>
+                    Please review the details mentioned above and ensure their accuracy. If you have any concerns or
+                    discrepancies, kindly contact our customer support team at
+                    <strong>
+                        <t t-out="object.agent_id.phone"/>
+                    </strong>
+                    or by replying to this email. Our representatives will be happy to assist you and address any
+                    questions you may have.
+                </p>
+                <p>
+                    The next steps of the claims process will depend on the nature of your specific claim. Our team will
+                    be in touch with you shortly to discuss the further actions required. If there are any additional
+                    documents or information needed, we will provide clear instructions on how to proceed.
+                </p>
+                <p>
+                    Once again, congratulations on the approval of your insurance policy claim. We appreciate your
+                    patience and cooperation throughout the evaluation process. Our priority is to provide you with the
+                    support you need and ensure a smooth settlement of your claim.
+                </p>
+                <p>
+                    Thank you for choosing
+                    <strong>
+                        <t t-out="object.insurance_policy_id.company_id.name"/>
+                    </strong>
+                    as your insurance provider. We value your trust and confidence in our services, and we remain
+                    committed to delivering exceptional customer experience.
+                </p>
+                <h6>
+                    Sincerely,
+                </h6>
+                <h5>
+                    <strong>
+                        <t t-out="object.agent_id.name"/>
+                    </strong>
+                </h5>
+                <hr/>
+                <span>
+                    <h6>
+                        <t t-out="object.insurance_policy_id.company_id.name"/>
+                    </h6>
+                    <t t-out="object.insurance_policy_id.company_id.phone"/>
+                    <br/>
+                    <t t-out="object.insurance_policy_id.company_id.email"/>
+                    <br/>
+                    <t t-out="object.insurance_policy_id.company_id.website"/>
+                </span>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

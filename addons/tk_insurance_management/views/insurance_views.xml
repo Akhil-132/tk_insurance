@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="insurance_information_view_form" model="ir.ui.view">
+            <field name="name">insurance.information.view.form</field>
+            <field name="model">insurance.information</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="instalment_complete" invisible="1"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,completed,running,expired"/>
+                        <button string="Expired" name="running_to_expired" type="object"
+                                attrs="{'invisible': [('state', 'not in', ['running'])]}"/>
+                        <button name="action_mark_completed"
+                                    type="object"
+                                    string="Mark as Completed"
+                                    class="btn btn-success"
+                                    attrs="{'invisible': [('state', '=', 'completed')]}"/>
+                        <button name="action_reset_to_draft"
+                                    type="object"
+                                    string="Reset to Draft"
+                                    class="btn btn-secondary"
+                                    attrs="{'invisible': [('state', '!=', 'completed')]}"/>
+                        <button name="action_create_agent_bill" string="Create Agent Commission Bill" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('agent_bill_id', '!=', False)]}" invisible="1"/>
+                        <button name="action_create_customer_invoice" string="Create Invoice" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', 'not in', ['running', 'completed'])]}"/>
+                        <button string="Invoice Created" class="oe_highlight"
+                                attrs="{'invisible': [('invoice_created', '!=', True)]}" readonly="1"/>
+                        <button name="action_create_vendor_bill" string="Create Vendor Bill" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['running', 'completed'])]}"/>  
+                        <button name="action_create_myagent_bill" string="Create Agent Bill" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['running', 'completed'])]}"/>
+                        <button name="action_generate_sp_bill" string="Create SP Bill" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['running', 'completed'])]}"/>                                                                                             
+                        <button class="oe_highlight" type="object" name="action_insurance_invoice"
+                                string="Fixed Invoice"
+                                attrs="{'invisible': ['|', '|', ('agent_bill_id', '=', False), ('invoice_id', '!=', False), ('premium_type', '=', 'installment')]}" invisible="1"/>
+                        <button class="oe_highlight" type="object" name="action_create_emi_installment"
+                                string="Installment Invoice"
+                                attrs="{'invisible': ['|', '|', ('agent_bill_id', '=', False), ('instalment_complete', '=', True), ('premium_type', '=', 'fixed')]}"/>
+                        <button name="%(action_insurance_claim)d" string="Create Claim" type="action"
+                                class="oe_highlight" attrs="{'invisible': [('state', '!=', 'running')]}"
+                                context="{'insurance_id': active_id}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" position="inside">
+                            <button class="oe_stat_button" type="object" name="action_insured_document"
+                                    icon="fa-fw o_button_icon fa-id-card-o">
+                                <field string="Documents" name="document_count" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_insured_claim"
+                                    icon="fa-bars">
+                                <field string="Claims" name="claim_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="insurance_number"/>
+                            </h1>
+                        </div>
+                        <group string="Policy Details">
+                            <group>
+                                <field name="insurance_category_id"/>
+                                <field name="insurance_sub_category_id"/>
+                                <field name="insurance_sub_category_name" invisible="1"/>
+                                <field name="company_name_id"/>
+                                <field name="vehicle_type_id"/>
+                                <field name="cylinder_type" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}"/>
+                                <field name="doors" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}"/>
+                                <field name="vehicle_ton" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}"/>
+                                <field name="usage"/>
+                                <field name="insurance_policy_id" attrs="{'readonly': [('is_readonly', '=', True)]}" invisible="1"/> 
+                                <field name="is_readonly" invisible="1"/> 
+                                <field name="invoice_created" invisible="1"/> 
+                                <!-- <field name="company_name_id"/> -->
+                                <field name="insurance_buying_for_id"/>
+                            </group>
+                            <group>
+                                <field name="policy_certificate_no"
+                                       attrs="{'required': [('category', '=', 'vehicle')], 'invisible': [('category', '!=', 'vehicle')]}"/>
+                                <field name="previous_policy_no"
+                                       attrs="{'required': [('category', '=', 'vehicle')], 'invisible': [('category', '!=', 'vehicle')]}"/>
+                                <field name="issue_date"/>
+                                <field name="expiry_date"/>
+                                <field name="insurance_time_period"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Agent Details">
+                                <field name="agent_id" required="1"/>
+                                <field name="agent_phone"/>
+                                <!-- <field name="product_id"/> -->
+                                <!-- <field name="customer_id"/> -->
+                            </group>
+                            <group string="Agent Fee">
+                              <field name="agent_fee" invisible="1"/>
+                              <field name="agent_fee_amount"/>
+                            </group>
+                            <group string="Agent Commission Details" invisible="1">
+                                <field name="commission_type" widget="radio" options="{'horizontal': true}"
+                                       attrs="{'readonly': [('agent_bill_id', '!=', False)]}"/>
+                                <field name="fixed_commission"
+                                       attrs="{'invisible': [('commission_type', '!=', 'fixed')], 'readonly': [('agent_bill_id', '!=', False)]}"/>
+                                <field name="percentage_commission"
+                                       attrs="{'invisible': [('commission_type', '!=', 'percentage')], 'readonly': [('agent_bill_id', '!=', False)]}"/>
+                                <field name="total_commission"
+                                       attrs="{'invisible': [('commission_type', '!=', 'percentage')]}"/>
+                                <field name="agent_bill_id" attrs="{'invisible': [('agent_bill_id', '=', False)]}"
+                                       readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Insured Details">
+                                <field name="insured_id"/>
+                                <label for="dob" string="Date of Birth"/>
+                                <div class="address_format">
+                                    <field name="dob" style="width: 47%"/>
+                                    <strong>&#160;&#160;&#160;Age&#160;&#160;</strong>
+                                    <field name="age" style="width: 30%"/>
+                                </div>
+                                <field name="gender"/>
+                                <field name="license_age"/>
+                                <field name="vehicle_value" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}"/>
+                            </group>
+                            <group string="Nominee Details">
+                                <field name="insurance_nominee_id"/>
+                                <field name="your_nominee_is_your"/>
+                                <field name="nominee_dob"/>
+                                <field name="category" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="Life Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'life')]}">
+                            <group>
+                                <field name="life_insured_age" string="Insured Age"
+                                       attrs="{'required': [('category', '=', 'life')]}"/>
+                                <field name="is_smoking_status" widget="radio"
+                                       options="{'horizontal': true}"/>
+                            </group>
+                            <group>
+                                <field name="desired_death_amount"
+                                       attrs="{'required': [('category', '=', 'life')]}"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <h6>Length of Coverage Terms</h6>
+                            <field name="length_of_coverage_term"/>
+                            <h6>Occupation and Hobbies of Insured</h6>
+                            <field name="occupation_and_hobbies"/>
+                            <h6>Health History of Insured</h6>
+                            <field name="life_health_history"/>
+                            <h6>Family Medical History of Insured</h6>
+                            <field name="family_medical_history"/>
+                        </group>
+
+                        <group string="Health Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'health')]}">
+                            <group>
+                                <field name="health_insured_age" attrs="{'required': [('category', '=', 'health')]}"/>
+                                <field name="desired_coverage_type" widget="radio"
+                                       options="{'horizontal': true}"/>
+                            </group>
+                            <group>
+                                <field name="health_deductible_amount" string="Deductible Amount"
+                                       attrs="{'required': [('category', '=', 'health')]}"/>
+                                <field name="copay_amount" attrs="{'required': [('category', '=', 'health')]}"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+
+                            <h6>
+                                Out of Pocket Maximum
+                            </h6>
+                            <field name="out_of_pocket_maximum"/>
+                            <h6>
+                                Health History of Insured
+                            </h6>
+                            <field name="health_history_of_insured"/>
+                            <h6>
+                                Prescription Drug Coverage
+                            </h6>
+                            <field name="drug_coverage"/>
+                            <h6>
+                                Preferred Healthcare Provider Network
+                            </h6>
+                            <field name="healthcare_provider_network"/>
+                        </group>
+
+                        <group string="Property Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'property')]}">
+                            <group>
+                                <field name="construct_year" attrs="{'required': [('category', '=', 'property')]}"/>
+                                <field name="desired_coverage_types" widget="radio" string="Coverage Type"/>
+                            </group>
+                            <group>
+                                <span class="o_form_label o_td_label" name="address_name">
+                                    <strong>Address</strong>
+                                </span>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State"
+                                           options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country"
+                                           options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                                </div>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('category', '!=', 'property')]}">
+                            <group>
+                                <field name="property_value" attrs="{'required': [('category', '=', 'property')]}"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="property_deductible_amount" string="Deductible Amount"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <h6>Property Coverage Limits</h6>
+                            <field name="property_coverage_limits"/>
+                            <h6>Construction Type and Materials</h6>
+                            <field name="construction_type_and_materials"/>
+                            <h6>Special Features of the Property</h6>
+                            <field name="special_features_of_the_property"/>
+                            <h6>Personal Property Inventory</h6>
+                            <field name="personal_property_inventory"/>
+                        </group>
+
+                        <group string="Liability Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'liability')]}">
+                            <group>
+                                <field name="liability_coverage_type" widget="radio"
+                                       options="{'horizontal': true}" string="Coverage Type"/>
+                            </group>
+                            <group>
+                                <field name="type_of_liability_risk" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                            <h6>Desired Coverage Limits</h6>
+                            <field name="desired_coverage_limits"/>
+                            <h6>Business Type and Operations (for Business Liability Insurance)</h6>
+                            <field name="business_type_and_operations"/>
+                        </group>
+
+                        <group string="Disability Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'disability')]}">
+                            <group>
+                                <field name="occupation" attrs="{'required': [('category', '=', 'disability')]}"/>
+                                <field name="insured_is_smoking"/>
+                            </group>
+                            <group>
+                                <field name="income" attrs="{'required': [('category', '=', 'disability')]}"/>
+                                <field name="disability_desired_benefit_amount"
+                                       attrs="{'required': [('category', '=', 'disability')]}"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <h6>Length of Coverage Period</h6>
+                            <field name="length_coverage_disability_period"/>
+                            <h6>Health History</h6>
+                            <field name="disability_health_history"/>
+                            <h6>Occupation and Hobbies of Insured</h6>
+                            <field name="occupation_and_hobbies"/>
+                        </group>
+
+                        <group string="Travel Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'travel')]}">
+                            <group>
+                                <field name="types_of_coverage" widget="radio"/>
+                            </group>
+                            <group>
+                                <label for="trip_length"/>
+                                <div class="o_row">
+                                    <field name="trip_length" attrs="{'required': [('category', '=', 'travel')]}"/>
+                                    <field name="odometer_unit"/>
+                                </div>
+                                <field name="trip_coverage_amount"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <h6>
+                                Traveler Health History
+                            </h6>
+                            <field name="traveler_health_history"/>
+                        </group>
+
+                        <group string="Pet Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'pet')]}">
+                            <group>
+                                <label for="age_of_breed_of_the_pet" string="Age"/>
+                                <div class="address_format">
+                                    <field name="age_of_breed_of_the_pet" style="width: 35%"
+                                           attrs="{'required': [('category', '=', 'pet')]}"/>
+                                    <strong>&#160;&#160;Years&#160;&#160;</strong>
+                                </div>
+                                <field name="pet_desired_coverage_type" widget="radio" string="Coverage Type"/>
+                            </group>
+                            <group>
+                                <field name="exclusions" widget="radio" options="{'horizontal': true}"/>
+                                <field name="accident_coverage"
+                                       attrs="{'invisible': [('pet_desired_coverage_type', '=', 'illness')], 'required': [('category', '=', 'pet')]}"/>
+                                <field name="illness_coverage"
+                                       attrs="{'invisible': [('pet_desired_coverage_type', '=', 'accident')], 'required': [('category', '=', 'pet')]}"/>
+                                <field name="pet_deductible_amount" string="Deductible Amount"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+
+                            <h6>
+                                Coverage Limits
+                            </h6>
+                            <field name="pet_coverage_limits"/>
+                        </group>
+
+                        <group string="Business Insurance Policy Details"
+                               attrs="{'invisible': [('category', '!=', 'business')]}">
+                            <group>
+                                <field name="business_desired_coverage_type" widget="radio" string="Coverage Type"/>
+                            </group>
+                            <group>
+                                <field name="business_property_value"
+                                       attrs="{'required': [('category', '=', 'business')]}"/>
+                                <field name="number_of_employees"
+                                       attrs="{'required': [('category', '=', 'business')]}"/>
+                                <field name="business_deductible_amount" string="Deductible Amount"
+                                       attrs="{'required': [('category', '=', 'business')]}"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <h6>Business Type and Operations</h6>
+                            <field name="business_type_operation"/>
+                            <h6>Business Coverage Limits</h6>
+                            <field name="business_coverage_limits"/>
+                            <h6>Industry Specific Risks(Such as Malpractice Insurance for Healthcare Providers)</h6>
+                            <field name="industry_specific_risks"/>
+                        </group>
+                        <notebook>
+                            <page name="vehicle_insurance_policy_details" string="Vehicle Insurance Policy Details"
+                                  attrs="{'invisible': [('category', '!=', 'vehicle')]}">
+                              <group string="Car Details">
+                                   <group>
+                                      <field name="brand_name_id"/>
+                                      <field name="brand_model_id"/>
+                                      <field name="brand_variant_id"/>
+                                   </group>
+                                </group> 
+                                <group string="Insured Vehicle Details">
+                                    <group>
+                                        <field name="year"/>
+                                        <field name="cubic_capacity"/>
+                                        <field name="setting_capacity"/>
+                                    </group>
+                                    <group>
+                                        <field name="vin_no" attrs="{'required': [('category', '!=', 'vehicle')]}"/>
+                                        <field name="reg_no" attrs="{'required': [('category', '!=', 'vehicle')]}"/>
+                                        <field name="place_of_reg"/>
+                                        <field name="usage_of_vehicle" widget="radio" options="{'horizontal': true}"/>
+                                        <!-- <field name="coverage_type" string="Coverage Type"/> -->
+                                    </group>
+                                </group>
+                                <group string="Vehicle Insured Declared Values">
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <group>
+                                        <field name="for_the_vehicle"/>
+                                        <field name="for_trailer"/>
+                                        <field name="non_electric_accessories"/>
+                                    </group>
+                                    <group>
+                                        <field name="electric_accessories"/>
+                                        <field name="value_of_cng_lpg_kit"/>
+                                        <field name="total_idv" force_save="1"/>
+                                    </group>
+                                </group>
+                                <group string="Schedule of Premiums">
+                                    <group string="Own Damage Premium">
+                                        <field name="basic_od"/>
+                                        <field name="od_package_premium" string="Package Premium"/>
+                                        <field name="service_tax"/>
+                                        <field name="special_discount"/>
+                                        <field name="final_premium" force_save="1"/>
+                                    </group>
+                                    <group string="Third Party Liability Premium">
+                                        <field name="basic_tp_liability"/>
+                                        <field name="pa_cover_for_owner_driver"/>
+                                        <field name="package_premium" string="Package Premium"/>
+                                        <field name="liability_service_tax"/>
+                                        <field name="total_policy_amount" force_save="1"/>
+                                    </group>
+                                </group>
+                                <h6>Limitation as to Use</h6>
+                                <field name="limitation_as_to_use"/>
+                                <h6>Limits of Liability</h6>
+                                <field name="limits_of_liability"/>
+                                <h6>Deductibles Under Section</h6>
+                                <field name="deductibles_under_section"/>
+                                <h6>Special Conditions</h6>
+                                <field name="special_conditions"/>
+                                <h6>Driving History</h6>
+                                <field name="driving_history"/>
+                            </page>
+                            <page name="vehicle_images" string="Vehicle Images"
+                                  attrs="{'invisible': [('category', '!=', 'vehicle')]}">
+                                <field name="vehicle_insurance_image_ids" nolabel="1">
+                                    <kanban string="Kanban" class="">
+                                        <field name="id"/>
+                                        <field name="avatar"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="row oe_kanban_global_click"
+                                                     style="max-width: 380px !important; max-height: 380px !important;">
+                                                    <div class="col-12">
+                                                        <img t-att-src="kanban_image('vehicle.insurance.image', 'avatar', record.id.raw_value)"
+                                                             t-att-alt="name"
+                                                             style="margin-left: -9px; margin-right: 5px; margin-top: 5px;"
+                                                             width="350px"
+                                                             height="320px" class="img img-responsive"/>
+                                                    </div>
+                                                    <div class="oe_kanban_details" style="text-align: center;">
+                                                        <strong>
+                                                            <field name="name"/>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                            <page name="payment_details" string="Payment Details">
+                            <group>
+                            <group string="Optional Conditions" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                               <group>
+                                 <field name="use_previous_cover_tpl" attrs="{'invisible': [('cover_tpl', '=', 0.0)]}"/>
+                                 <field name="cover_tpl" invisible="1"/>
+                                 <field name="use_previous_insurance_charge" attrs="{'invisible': [('insurance_charge', '=', 0.0)]}"/>
+                                 <field name="insurance_charge" invisible="1"/>
+                                 <field name="use_rent_a_car_5" attrs="{'invisible': [('rent_a_car_5', '=', 0.0)]}"/>
+                                 <field name="rent_a_car_5" invisible="1"/>
+                                 <field name="use_rent_a_car_10" attrs="{'invisible': [('rent_a_car_10', '=', 0.0)]}"/>
+                                 <field name="rent_a_car_10" invisible="1"/>
+                                 <field name="use_ambulance_fee" attrs="{'invisible': [('ambulance_fee', '=', 0.0)]}"/>
+                                 <field name="ambulance_fee" invisible="1"/>
+                                 <field name="use_EVG" attrs="{'invisible': [('EVG', '=', 0.0)]}"/>
+                                 <field name="EVG" invisible="1"/>
+                                 <field name="use_gcc_cover" attrs="{'invisible': [('gcc_cover', '=', 0.0)]}"/>
+                                 <field name="gcc_cover" invisible="1"/>
+                                 </group>
+                                <group>
+                               <field name="use_natural_perils" attrs="{'invisible': [('natural_perils', '=', 0.0)]}"/>
+                                 <field name="natural_perils" invisible="1"/>
+                               <field name="use_road_side_assistance_gold" attrs="{'invisible': [('road_side_assistance_gold', '=', 0.0)]}"/>
+                                 <field name="road_side_assistance_gold" invisible="1"/>
+                                 <field name="use_road_side_assistance_silver" attrs="{'invisible': [('road_side_assistance_silver', '=', 0.0)]}"/>
+                                 <field name="road_side_assistance_silver" invisible="1"/>
+                                 <field name="use_cover_tpl_od" attrs="{'invisible': [('cover_tpl_od', '=', 0.0)]}"/>
+                                 <field name="cover_tpl_od" invisible="1"/>
+                                 <field name="use_cover_tpl_od_tpl" attrs="{'invisible': [('cover_tpl_od_tpl', '=', 0.0)]}"/>
+                                 <field name="cover_tpl_od_tpl" invisible="1"/>
+                               </group>
+                               </group>
+                               <group string="Optional Conditions TPL" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Third-Party Insurance')]}">
+                                <group>
+                                    <field name="use_ambulance_fee"/>
+                                    <!-- <field name="ambulance_fee_refund" string="Is Refundable"/> -->
+                                    <field name="use_EVG"/>
+                                    <field name="use_road_side_assistance_gold"/>
+                                    <field name="use_road_side_assistance_silver"/>
+                                    <field name="use_previous_insurance_charge"/>
+                                    <field name="use_previous_cover_tpl"/>
+                                </group>
+                            </group>
+                               </group>
+                            <group string="Premium" attrs="{'invisible': [('insurance_sub_category_name', '!=', 'Comprehensive Insurance')]}">
+                               <group>
+                                 <field name="premium_option" on_change="1"/>
+                                 <field name="use_daynatrade_premium" class="radio" widget="radio" options="{'horizontal': true}"
+                                    attrs="{'readonly': [('premium_option', '!=', 'use_daynatrade_premium')]}"/>
+                                 <field name="use_workshop_premium" class="radio" widget="radio" options="{'horizontal': true}"
+                                    attrs="{'readonly': [('premium_option', '!=', 'use_workshop_premium')]}"/>
+                                 <field name="use_scheme_agency_premium" class="radio" widget="radio" options="{'horizontal': true}"
+                                    attrs="{'readonly': [('premium_option', '!=', 'use_scheme_agency_premium')]}"/>
+                                 <field name="use_non_agency_premium" class="radio" widget="radio" options="{'horizontal': true}"
+                                    attrs="{'readonly': [('premium_option', '!=', 'use_non_agency_premium')]}"/>
+                                <field name="use_agency_premium" class="radio" widget="radio" options="{'horizontal': true}"
+                                    attrs="{'readonly': [('premium_option', '!=', 'use_agency_premium')]}"/>
+                               </group>
+                               <group>
+                               <field name="daynatrade_premium"/>
+                               <field name="workshop_premium"/>
+                               <field name="scheme_agency_premium"/>
+                               <field name="non_agency_premium"/>
+                               <field name="agency_premium"/>
+                               </group>
+                            </group>                               
+                                <group>
+                                <group string="Types of Payments">
+                                    <field name="subject_to_approval" string="Subject to Approval"/>
+                                    <field name="premium_type" widget="radio" options="{'horizontal': true}"
+                                        attrs="{'readonly': [('instalment_complete', '=', True), ('subject_to_approval', '=', False)]}" invisible="1" />
+                                    <field name="ins_payable" attrs="{'readonly': [('subject_to_approval', '=', False)]}"/>
+                                    <field name="discount" invisible="1"/>
+                                    <field name="sale_amt_incl_tax" attrs="{'readonly': [('subject_to_approval', '=', False)]}"/>
+                                    <field name="sale_amt_excl_tax" attrs="{'help': 'Please enter a value less than ins_payable.', 'readonly': [('subject_to_approval', '=', False)]}" invisible="1"/> 
+                                </group>
+                                <group string="Payment Details">
+                                    <field name="ins_tax_amount" attrs="{'readonly': [('subject_to_approval', '=', False)]}"/>
+                                    <field name="policy_tax_amount" attrs="{'readonly': [('subject_to_approval', '=', False)]}"/>
+                                    <field name="commission" attrs="{'readonly': [('subject_to_approval', '=', False)]}"/>
+                                    <field name="tax_amount" attrs="{'readonly': [('subject_to_approval', '=', False)]}"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <label for="total_policy_amount" string="Total Policy Amount"/>
+                                    <div class="address_format">
+                                        <field name="total_policy_amount" force_save="1"
+                                            attrs="{'readonly': [('subject_to_approval', '=', False)]}"
+                                            style="width: auto;"/>
+                                        <strong attrs="{'invisible': [('premium_type', '=', 'fixed')]}"
+                                                style="margin-left: 15px; width:auto;">
+                                            &#160;&#160;Monthly Instalments&#160;&#160;
+                                        </strong>
+                                        <field name="monthly_installment"
+                                            attrs="{'invisible': [('premium_type', '=', 'fixed')], 'readonly': [('subject_to_approval', '=', False)]}" readonly="1"
+                                            force_save="1" style="margin-left: 15px; width: auto;"/>
+                                    </div>
+
+                                    <label for="invoice_id" string="Insurance Invoice"
+                                        attrs="{'invisible':['|', ('invoice_id','=',False), ('premium_type', '=', 'installment')]}"/>
+                                    <div class="address_format">
+                                        <field name="invoice_id"
+                                            attrs="{'invisible':['|', ('invoice_id','=',False), ('premium_type', '=', 'installment')], 'readonly': [('subject_to_approval', '=', False)]}"
+                                            readonly="1" force_save="1" style="width: auto;"/>
+                                        <field name="payment_state" widget="badge"
+                                            decoration-success="payment_state=='paid'"
+                                            decoration-danger="payment_state=='not_paid'"
+                                            decoration-info="payment_state=='in_payment'"
+                                            decoration-primary="payment_state=='partial'"
+                                            decoration-warning="payment_state=='reversed'" nolabel="1"
+                                            attrs="{'invisible':['|', ('invoice_id','=',False), ('premium_type', '=', 'installment')]}"
+                                            style="margin-left: 15px; width: auto;"/>
+                                    </div>
+                                    <field name="duration" invisible="1"/>
+                                </group>
+                            </group>
+                                <field name="insurance_emi_ids" attrs="{'invisible': [('premium_type', '=', 'fixed')]}">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="installment_date"/>
+                                        <field name="premium_type" invisible="1"/>
+                                        <field name="installment_amount" sum="installment_amount"/>
+                                        <field name="invoice_id" readonly="1" widget="many2one_button"/>
+                                        <field name="payment_state" widget="badge"
+                                               decoration-success="payment_state=='paid'"
+                                               decoration-danger="payment_state=='not_paid'"
+                                               decoration-info="payment_state=='in_payment'"
+                                               decoration-primary="payment_state=='partial'"
+                                               decoration-warning="payment_state=='reversed'"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <button class="oe_highlight" type="object" name="action_insurance_invoice"
+                                                string="Invoice" attrs="{'invisible': [('invoice_id', '!=', False)]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="policy_terms_and_condition" string="Terms &amp; Conditions">
+                                <field name="policy_terms_and_conditions"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="insurance_information_view_tree" model="ir.ui.view">
+            <field name="name">insurance.information.view.tree</field>
+            <field name="model">insurance.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="insurance_number"/>
+                    <field name="insured_id"/>
+                    <field name="agent_id"/>
+                    <field name="insurance_policy_id"/>
+                    <field name="policy_certificate_no"/>
+                    <field name="insurance_sub_category_id"/>
+                    <field name="vehicle_type_id"/>
+                    <field name="cylinder_type"/>
+                    <field name="doors" optional="hide"/>
+                    <field name="vehicle_ton" optional="hide"/>
+                    <field name="insurance_category_id" optional="hide"/>
+                    <field name="brand_name_id" optional="hide"/>
+                    <field name="brand_model_id" optional="hide"/>
+                    <field name="brand_variant_id" optional="hide"/>
+                    <field name="issue_date"/>
+                    <field name="expiry_date"/>
+                    <field name="sale_amt_incl_tax"/>
+                    <field name="state" widget="badge"
+                           decoration-info="state == 'draft'"
+                           decoration-success="state == 'running'"
+                           decoration-danger="state == 'expired'"/>
+                </tree>
+            </field>
+        </record>
+        <record id="insurance_information_calendar_view" model="ir.ui.view">
+            <field name="name">insurance.information.calendar.view</field>
+            <field name="model">insurance.information</field>
+            <field name="arch" type="xml">
+                <calendar string="Insurance Information Calendar"
+                          date_start="issue_date"
+                          event_open_popup="true"
+                          mode="month"
+                          color="insurance_category_id"
+                          scales="day,month,year"
+                          quick_add="False">
+                    <field name="insurance_number"/>
+                    <field name="insurance_category_id" filters="1"/>
+                    <field name="insured_id"/>
+                    <field name="agent_id"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="insurance_information_search_view" model="ir.ui.view">
+            <field name="name">insurance.information.search.view</field>
+            <field name="model">insurance.information</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="insured_id"/>
+                    <field name="insurance_number"/>
+                    <group string="Group By">
+                        <filter name="insured_id" string="Applicant Name"
+                                context="{'group_by': 'insured_id'}"/>
+                        <filter name="insurance_category_id" string="Policy Category"
+                                context="{'group_by': 'insurance_category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="insurance_information_action" model="ir.actions.act_window">
+            <field name="name">Insurance</field>
+            <field name="res_model">insurance.information</field>
+            <field name="view_mode">tree,form,calendar,search,activity</field>
+        </record>
+         <record id="action_sp_bills" model="ir.actions.act_window">
+            <field name="name">SP Bills</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[("move_type", "=", "in_invoice"), ("bill_type", "=", "sp")]</field>
+            <field name="context">{}</field>
+        </record>
+        <record id="action_revenue_bills" model="ir.actions.act_window">
+            <field name="name">Revenue Bills</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('move_type', '=', 'in_invoice'), ('bill_type', '=', 'revenue')]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="account.action_move_in_invoice_type" model="ir.actions.act_window">
+            <field name="name">Vendor Bills</field>
+            <field name="domain">[("move_type", "=", "in_invoice"), ("bill_type", "!=", "sp")]</field>
+        </record>
+        <record id="account.action_move_in_invoice_type" model="ir.actions.act_window">
+            <field name="name">Revenue Bills</field>
+            <field name="domain">[("move_type", "=", "in_invoice"), ("bill_type", "!=", "sp")]</field>
+        </record>    
+        <record id="action_insurance_revenue" model="ir.actions.act_window">
+            <field name="name">Revenue Records</field>
+            <field name="res_model">revenue.record</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>  <!-- Remove restrictive filters -->
+            <field name="context">{}</field>
+            <!-- Ensure the correct tree view is linked by uncommenting the line below -->
+            <!-- <field name="view_id" ref="view_insurance_revenue_tree"/>
+            <field name="search_view_id" ref="view_insurance_revenue_search"/> -->
+        </record>
+
+        <record id="view_insurance_revenue_tree" model="ir.ui.view">
+        <field name="name">Insurance Revenue Tree</field>
+        <field name="model">revenue.record</field>
+        <field name="arch" type="xml">
+            <tree string="Revenue Records">
+                <field name="insurance_information_id"/>
+                <field name="invoice_date"/>
+                <field name="partner_id"/>
+                <field name="company_name"/>
+                <field name="insurance_type"/>
+                <field name="commission"/>
+                <field name="policy_tax_amount"/>
+                <field name="total_amount"/>
+                <field name="invoice_id" string="Invoice"/>
+                <field name="invoice_state" string="Invoice Status"/>
+                <field name="payment_state" string="Payment Status"/>
+            </tree>
+        </field>
+    </record> 
+   <record id="view_insurance_revenue_search" model="ir.ui.view">
+    <field name="name">Insurance Revenue Search</field>
+    <field name="model">revenue.record</field>
+    <field name="arch" type="xml">
+        <search>            
+            <!-- Additional Search Filters -->
+            <field name="payment_state" string="Payment Status"/>
+            <field name="partner_id" string="Agent"/>
+            <field name="insurance_information_id" string="Insurance Reference"/>
+            <field name="company_name" string="Company Name"/>
+            <field name="invoice_state" string="Invoice Status"/>
+            <filter name="payment_state_paid" string="Paid" domain="[('payment_state', '=', 'paid')]" />
+            <filter name="payment_state_not_paid" string="Not Paid" domain="[('payment_state', '=', 'not_paid')]" />
+            <filter name="payment_state_partial" string="Partial" domain="[('payment_state', '=', 'partial')]" />
+        </search>
+    </field>
+</record>
+         <record id="action_third_party_insurance_issue" model="ir.actions.act_window">
+         <field name="name">Third-Party Insurance</field>
+         <field name="res_model">insurance.information</field>
+         <field name="view_mode">tree,form</field>
+         <field name="domain">[('insurance_sub_category_name', '=', 'Third-Party Insurance')]</field>
+         <field name="context">{
+            'default_insurance_type': 'third_party',
+            'force_create': True,
+            'default_insurance_category_name': 'Motor Insurance',
+            'default_insurance_sub_category_name': 'Third-Party Insurance'
+         }</field>
+      </record>
+
+      <record id="action_comprehensive_insurance_issue" model="ir.actions.act_window">
+         <field name="name">Comprehensive Insurance</field>
+         <field name="res_model">insurance.information</field>
+         <field name="view_mode">tree,form</field>
+         <field name="domain">[('insurance_sub_category_name', '=', 'Comprehensive Insurance')]</field>
+         <field name="context">{
+            'default_insurance_type': 'comprehensive',
+            'force_create': True,
+            'default_insurance_category_name': 'Motor Insurance',
+            'default_insurance_sub_category_name': 'Comprehensive Insurance'
+         }</field>
+      </record>
+
+ 
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="claim_document_type_tree_view" model="ir.ui.view">
+            <field name="name">claim.document.type.tree.view</field>
+            <field name="model">claim.document.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="claim_document_type"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_claim_document_type" model="ir.actions.act_window">
+            <field name="name">Claim Document Type</field>
+            <field name="res_model">claim.document.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

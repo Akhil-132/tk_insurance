@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="insurance_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="insurance">
+                <tr t-call="web.external_layout">
+                    <div class="page">
+
+                        <table style="font-size:15px;margin-bottom: 0px;width:100%;" cellpadding="0">
+                            <tr class="border border-dark">
+                                <td colspan="100%" style="text-align:center;font-size:20px;" class="border border-dark">
+                                    <strong>Insurance Report</strong>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%" colspan="100%">
+                                    <strong>
+                                        Insured Details
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Insurance
+                                    Number:
+                                    <span t-field="insurance.insurance_number"/>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Phone:
+                                    <span t-field="insurance.insured_id.phone"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Insured:
+                                    <span t-field="insurance.insured_id"/>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Email:
+                                    <span t-field="insurance.insured_id.email"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Gender:
+                                    <span t-field="insurance.gender"/>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Buying For:
+                                    <span t-field="insurance.insurance_buying_for_id"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Date of Birth:
+                                    <span t-field="insurance.dob"/>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Age:
+                                    <span t-field="insurance.age"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%" colspan="100%">
+                                    <strong>Nominee Details</strong>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Nominee:
+                                    <span t-field="insurance.insurance_nominee_id"/>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Your Nominee is
+                                    Your:
+                                    <span t-field="insurance.insurance_nominee_id.your_nominee_is_your"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Date of Birth:
+                                    <span t-field="insurance.insurance_nominee_id.nominee_dob"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%" colspan="100%">
+                                    <strong>
+                                        Agent Details
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Agent:
+                                    <span t-field="insurance.agent_id"/>
+                                </td>
+                                <t t-if="insurance.commission_type == 'percentage'">
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">
+                                        Percentage Commission:
+                                        <span t-field="insurance.percentage_commission"/>&#160;Commission:
+                                        <span t-field="insurance.total_commission"/>&#160;
+                                        <span t-field="insurance.agent_bill_id"/>
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">
+                                        Fixed Commission:
+                                        <span t-field="insurance.agent_fee_amount"/> AED&#160;
+                                        <span t-field="insurance.agent_bill_id"/>
+                                    </td>
+                                </t>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">
+                                    <strong>Policy Details</strong>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">
+                                    <strong>Insurance Time Duration</strong>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Category:
+                                    <span t-field="insurance.insurance_policy_id"/>
+                                </td>
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Policy Term:
+                                    <span t-field="insurance.insurance_time_period"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Insurance
+                                    Policy Date:
+                                    <span t-field="insurance.issue_date"/>&#160;to
+                                    <span t-field="insurance.expiry_date"/>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%" colspan="100%">
+                                    <strong>Payment Details</strong>
+                                </td>
+                            </tr>
+                            <tr class="border border-dark">
+                                <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">Premium Type:
+                                    <span t-field="insurance.premium_type"/>
+                                </td>
+                                <t t-if="insurance.premium_type == 'fixed'">
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">
+                                        Total Policy Amount:
+                                        <span t-field="insurance.total_policy_amount"/>&#160;&#160;Invoice:
+                                        <br>
+                                        </br>
+                                        <span t-esc="insurance.total_policy_amount_in_words"/>
+                                        <span t-field="insurance.invoice_id"/>
+                                        
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="50%">
+                                        Monthly Installment:
+                                        <span t-field="insurance.monthly_installment"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </table>
+                        <t t-if="insurance.premium_type == 'installment'">
+                            <table style="font-size:15px;margin-bottom: 0px;width:100%;" cellpadding="0">
+                                <tr class="border border-dark">
+                                    <td colspan="100%" style="text-align:center;" class="border border-dark">
+                                        <strong>Monthly Installment</strong>
+                                    </td>
+                                </tr>
+                                <tr class="border border-dark">
+                                    <th class="border border-dark" style="padding-left: 0.5rem;" width="49%">Name</th>
+                                    <th class="border border-dark" style="padding-left: 0.5rem;" width="15%">
+                                        Installment Date
+                                    </th>
+                                    <th class="border border-dark" style="padding-left: 0.5rem;" width="18%">
+                                        Installment Amount
+                                    </th>
+                                    <th class="border border-dark" style="padding-left: 0.5rem;" width="18%">Invoice
+                                    </th>
+                                </tr>
+                                <tr t-foreach="insurance.insurance_emi_ids" t-as="emi"
+                                    class="border border-dark">
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="49%">
+                                        <span t-field="emi.name"/>
+                                    </td>
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="15%">
+                                        <span t-field="emi.installment_date"/>
+                                    </td>
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="18%">
+                                        <span t-field="emi.installment_amount"/>
+                                    </td>
+                                    <td class="border border-dark" style="padding-left: 0.5rem;" width="18%">
+                                        <span t-field="emi.invoice_id"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <t t-else="">
+                        </t>
+                        <div class="card">
+                            <div class="card-header" style="text-align:center;">
+                                <strong>Terms &amp; Conditions</strong>
+                            </div>
+                            <div class="card-body" style="max-height: 300px; overflow: auto;">
+                                <span t-field="insurance.policy_terms_and_conditions"/>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            </t>
+        </t>
+    </template>
+    <record id="action_insurance_report" model="ir.actions.report">
+        <field name="name">Insurance Report</field>
+        <field name="model">insurance.information</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tk_insurance_management.insurance_report_template</field>
+        <field name="report_file">tk_insurance_management.insurance_report_template</field>
+        <field name="binding_model_id" ref="model_insurance_information"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

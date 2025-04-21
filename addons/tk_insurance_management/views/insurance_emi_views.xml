@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="insurance_emi_view_form" model="ir.ui.view">
+            <field name="name">insurance.emi.view.form</field>
+            <field name="model">insurance.emi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button class="oe_highlight" type="object" name="action_insurance_invoice" string="Invoice"
+                                attrs="{'invisible': [('invoice_id', '!=', False)]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" position="inside">
+                            <button class="oe_stat_button" type="object" name="action_insurance_invoice"
+                                    icon="fa-money">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="installment_amount"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </span>
+                                    <span class="o_stat_text">Invoice</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. 1st Installment"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Time Duration">
+                                <field name="installment_date"/>
+                            </group>
+                            <group string="Payment Details">
+                                <field name="premium_type" invisible="1"/>
+                                <field name="installment_amount"/>
+                                <label for="invoice_id" string="Insurance Invoice"/>
+                                <div class="address_format">
+                                    <field name="invoice_id"
+                                           readonly="1" force_save="1" style="width: 45%"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="payment_state" widget="badge"
+                                           decoration-success="payment_state=='paid'"
+                                           decoration-danger="payment_state=='not_paid'"
+                                           decoration-info="payment_state=='in_payment'"
+                                           decoration-primary="payment_state=='partial'"
+                                           decoration-warning="payment_state=='reversed'" nolabel="1"
+                                           style="width: 18%"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="insurance_emi_view_tree" model="ir.ui.view">
+            <field name="name">insurance.emi.view.tree</field>
+            <field name="model">insurance.emi</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="installment_date"/>
+                    <field name="premium_type" invisible="1"/>
+                    <field name="installment_amount" sum="installment_amount"/>
+                    <field name="invoice_id" readonly="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="payment_state" widget="badge"
+                           decoration-success="payment_state=='paid'"
+                           decoration-danger="payment_state=='not_paid'"
+                           decoration-info="payment_state=='in_payment'"
+                           decoration-primary="payment_state=='partial'"
+                           decoration-warning="payment_state=='reversed'"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_insurance_emi" model="ir.actions.act_window">
+            <field name="name">EMI</field>
+            <field name="res_model">insurance.emi</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

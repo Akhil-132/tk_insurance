@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="claim_information_view_form" model="ir.ui.view">
+            <field name="name">claim.information.view.form</field>
+            <field name="model">claim.information</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approved"/>
+                        <button string="Submit" name="draft_to_submit" type="object"
+                                attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                        <button string="Approved" name="submit_to_approved" type="object"
+                                attrs="{'invisible': [('state', 'not in', ['submit'])]}"/>
+                        <button string="Not Approved" name="approved_to_not_approved" type="object"
+                                attrs="{'invisible': [('state', 'in', ['draft', 'not_approved','approved'])]}"/>
+
+                        <button name="action_claim_settlement_amount" string="Claim Settlement Amount" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': ['|', ('invoice_id', '!=', False), ('state', 'not in', ['approved'])]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="claim_number"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Insurance Policy Number">
+                                <field name="insurance_id"/>
+                            </group>
+                            <group string="Claim Approval Date">
+                                <field name="claim_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Insurer Details">
+                                <field name="insured_id"/>
+                                <field name="dob" string='Date of Birth'/>
+                                <field name="age"/>
+                                <field name="phone"/>
+                            </group>
+                            <group string="Nominee Details">
+                                <field name="insurance_nominee_id"/>
+                                <field name="your_nominee_is_your"/>
+                                <field name="nominee_dob" string="Date of Birth"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Agent Details">
+                                <field name="agent_id"/>
+                            </group>
+                            <group string="Policy Provider">
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="reason_claim_application" string="Reason For Claim Application">
+                                <group>
+                                    <group string="Reason for Filing the Claim Application">
+                                        <group>
+                                            <field name="maturity_of_the_policy"/>
+                                            <field name="surrender_of_the_policy"/>
+                                            <field name="discounted_value_in_policy"/>
+                                        </group>
+                                        <group>
+                                            <field name="death_of_the_insured"/>
+                                            <field name="paid_up_of_lapsed_policy"/>
+                                            <field name="other"/>
+                                        </group>
+                                    </group>
+                                    <group string="If Death Claim, Furnish Date of Death"
+                                           attrs="{'invisible': [('death_of_the_insured', '!=', True)]}">
+                                        <field name="furnish_date_of_death"
+                                               attrs="{'required': [('death_of_the_insured', '=', True)]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="claim_documents" string="Claim Documents">
+                                <field name="claim_documents_ids">
+                                    <tree efault_order='claim_document_type_id asc'
+                                          decoration-success="state == 'verified'">
+                                        <field name="claim_document_type_id"/>
+                                        <field name="file_name" invisible="1"/>
+                                        <field name="avatar" filename="file_name" widget="binary"/>
+                                        <field name="state" widget="badge"
+                                               decoration-success="state == 'verified'"
+                                               decoration-danger="state == 'rejected'"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="policy_details" string="Policy Details">
+                                <group>
+                                    <group>
+                                        <field name="insurance_category_id"/>
+                                        <field name="insurance_sub_category_id"/>
+                                        <field name="insurance_policy_id"/>
+                                        <field name="insurance_time_period"/>
+                                    </group>
+                                    <group>
+                                        <field name="policy_amount"/>
+                                        <field name="amount_paid" required="1"
+                                               attrs="{'readonly': [('invoice_id', '!=', False)]}"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <label for="invoice_id" string="Claim Bill"
+                                               attrs="{'invisible': [('invoice_id', '=', False)]}"/>
+                                        <div class="address_format" attrs="{'invisible': [('invoice_id', '=', False)]}">
+                                            <field name="invoice_id" style="width: auto;" readonly="1"/>
+                                            <field name="payment_status" widget="badge"
+                                                   decoration-danger="payment_status == 'not_paid'"
+                                                   decoration-warning="payment_status in ('partial', 'in_payment')"
+                                                   decoration-success="payment_status in ('paid', 'reversed')"
+                                                   attrs="{'invisible': [('payment_status', 'in', ('invoicing_legacy'))]}"
+                                                   optional="show" style="margin-left: 15px; width: auto;"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="terms_and_conditions" string="Terms &amp; Conditions">
+                                <field name="policy_terms_and_conditions"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="claim_information_view_tree" model="ir.ui.view">
+            <field name="name">claim.information.view.tree</field>
+            <field name="model">claim.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="claim_number"/>
+                    <field name="insurance_id"/>
+                    <field name="claim_date"/>
+                    <field name="insured_id"/>
+                    <field name="insurance_category_id"/>
+                    <field name="insurance_policy_id"/>
+                    <field name="invoice_id" readonly="1"/>
+                    <field name="payment_status"
+                           widget="badge"
+                           decoration-danger="payment_status == 'not_paid'"
+                           decoration-warning="payment_status in ('partial', 'in_payment')"
+                           decoration-success="payment_status in ('paid', 'reversed')"
+                           attrs="{'invisible': [('payment_status', 'in', ('invoicing_legacy'))]}"
+                           optional="show"/>
+                </tree>
+            </field>
+        </record>
+        <record id="claim_information_search_view" model="ir.ui.view">
+            <field name="name">claim.information.search.view</field>
+            <field name="model">claim.information</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="insured_id"/>
+                    <field name="claim_number"/>
+                    <group string="Group By">
+                        <filter name="insurance_id" string="Insurance"
+                                context="{'group_by': 'insurance_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="claim_information_action" model="ir.actions.act_window">
+            <field name="name">Claim</field>
+            <field name="res_model">claim.information</field>
+            <field name="view_mode">tree,form,search,activity</field>
+        </record>
+    </data>
+</odoo>

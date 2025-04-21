@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="insurance_policy_has_expired_mail_template" model="mail.template">
+            <field name="name">Insurance Policy Has Expired Mail Template</field>
+            <field name="model_id" ref="tk_insurance_management.model_insurance_information"/>
+            <field name="subject">Important Update: Information Regarding Your Insurance Policy</field>
+            <field name="email_from">{{object.company_id.email}}</field>
+            <field name="partner_to">{{object.insured_id.id}}</field>
+            <field name="body_html" type="html">
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            Dear Customer,
+                            <br/>
+                            <h4>
+                                <strong>
+                                    <t t-out="object.insured_id.name"/>
+                                </strong>
+                            </h4>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+                <p>
+                    We hope this email finds you well. We are writing to provide you with important information related
+                    to your insurance policy with
+                    <strong>
+                        <t t-out="object.insurance_policy_id.company_id.name"/>
+                    </strong>
+                </p>
+                <p>
+                    We want to keep you informed about the status of your insurance policy and ensure that you have all
+                    the necessary details readily available. Our records indicate that there have been recent updates or
+                    changes pertaining to your policy.
+                </p>
+                <hr/>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>
+                                Please find below the key details related to your insurance policy:
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy Number:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_number"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_policy_id.policy_name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy Category:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_category_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Policy Sub Category:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.insurance_sub_category_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Coverage Start Date:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.issue_date"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Coverage End Date:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="object.expiry_date"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                Premium Amount:
+                            </strong>
+                        </td>
+                        <td>
+                            <t t-out="format_amount(object.total_policy_amount, object.currency_id)"/>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+                <p>
+                    It is crucial to review the above information carefully to ensure its accuracy. If you have any
+                    questions or concerns regarding the policy details, please reach out to our dedicated customer
+                    support team at
+                    <strong>
+                        <t t-out="object.agent_id.phone"/>
+                    </strong>
+                    or reply to this email. Our team will be happy to assist you.
+                </p>
+                <p>
+                    We strive to provide you with comprehensive coverage and exceptional service. Should you require any
+                    updates or modifications to your policy, please inform us at your earliest convenience. We will
+                    work diligently to accommodate your requests and ensure that your insurance policy aligns with your
+                    evolving needs.
+                </p>
+                <p>
+                    At
+                    <strong>
+                        <t t-out="object.insurance_policy_id.company_id.name"/>
+                    </strong>
+                    we value your trust and are committed to your satisfaction. We appreciate your continued support
+                    and look forward to serving you as your trusted insurance provider.
+                </p>
+                <p>
+                    Thank you for your attention to this matter.
+                </p>
+                <h6>
+                    Sincerely,
+                </h6>
+                <h5>
+                    <strong>
+                        <t t-out="object.agent_id.name"/>
+                    </strong>
+                </h5>
+                <hr/>
+                <span>
+                    <h6>
+                        <t t-out="object.insurance_policy_id.company_id.name"/>
+                    </h6>
+                    <t t-out="object.insurance_policy_id.company_id.phone"/>
+                    <br/>
+                    <t t-out="object.insurance_policy_id.company_id.email"/>
+                    <br/>
+                    <t t-out="object.insurance_policy_id.company_id.website"/>
+                </span>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="insurance_nominee_view_form" model="ir.ui.view">
+            <field name="name">insurance.nominee.view.form</field>
+            <field name="model">insurance.nominee</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Nominee Details">
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="your_nominee_is_your"/>
+                            </group>
+                            <group>
+                                <field name="nominee_dob"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="insurance_nominee_view_tree" model="ir.ui.view">
+            <field name="name">insurance.nominee.view.tree</field>
+            <field name="model">insurance.nominee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="your_nominee_is_your"/>
+                    <field name="nominee_dob"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_insurance_nominee" model="ir.actions.act_window">
+            <field name="name">Nominee</field>
+            <field name="res_model">insurance.nominee</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="vehicle_insurance_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="vehicle">
+                <tr t-call="web.external_layout">
+                    <div class="page">
+                        <t t-if="vehicle.category == 'vehicle'">
+                            <table class="table table-borderless" style="width: 100%; font-size: 14px;">
+                                <tr>
+                                    <td colspan="100%"
+                                        style="background-color: #F8F8F8; text-align: center; font-size: 17px;">
+                                        <strong>Vehicle Insurance Report</strong>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td colspan="50%">
+                                        <span>
+                                            <strong>Insurance Policy Details</strong>
+                                            <br/>
+                                            Insurance Number:
+                                            <span t-field="vehicle.insurance_number"/>
+                                            <br/>
+                                            Policy Category:
+                                            <span t-field="vehicle.insurance_category_id"/>
+                                            <br/>
+                                            Sub Category:
+                                            <span t-field="vehicle.insurance_sub_category_id"/>
+                                            <br/>
+                                            Insurance Policy:
+                                            <span t-field="vehicle.insurance_policy_id"/>
+                                            <br/>
+                                            Buying For:
+                                            <span t-field="vehicle.insurance_buying_for_id"/>
+                                        </span>
+                                    </td>
+                                    <td colspan="50%">
+                                        <span>
+                                            <br/>
+                                            Policy/Certificate No:
+                                            <span t-field="vehicle.policy_certificate_no"/>
+                                            <br/>
+                                            Previous Policy No:
+                                            <span t-field="vehicle.previous_policy_no"/>
+                                            <br/>
+                                            Policy Term:
+                                            <span t-field="vehicle.insurance_time_period"/>
+                                            <br/>
+                                            Insurance Policy Time Duration:
+                                            <span t-field="vehicle.issue_date"/>&#160;&#160;-&#160;
+                                            <span t-field="vehicle.expiry_date"/>
+                                            <br/>
+                                            Policy Amount:
+                                            <span t-field="vehicle.policy_amount"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td colspan="50%">
+                                        <span>
+                                            <strong>Agent Details</strong>
+                                            <br/>
+                                            Agent:
+                                            <span t-field="vehicle.agent_id"/>
+                                            <br/>
+                                            Phone:
+                                            <span t-field="vehicle.agent_phone"/>
+                                            <br/>
+                                            <t t-if="vehicle.commission_type == 'percentage'">
+                                                Percentage Commission:
+                                                <span t-field="vehicle.percentage_commission"/>&#160;Commission:
+                                                <span t-field="vehicle.total_commission"/>&#160;
+                                                <span t-field="vehicle.agent_bill_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                Fixed Commission:
+                                                <span t-field="vehicle.fixed_commission"/>&#160;
+                                                <span t-field="vehicle.agent_bill_id"/>
+                                            </t>
+                                        </span>
+                                    </td>
+                                    <td colspan="50%">
+                                        <span>
+                                            <strong>Insured Details</strong>
+                                            <br/>
+                                            Insured:
+                                            <span t-field="vehicle.insured_id"/>
+                                            <br/>
+                                            Date of Birth:
+                                            <span t-field="vehicle.dob"/>
+                                            <br/>
+                                            Age:
+                                            <span t-field="vehicle.age"/>
+                                            <br/>
+                                            Gender:
+                                            <span t-field="vehicle.gender"/>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td colspan="50%">
+                                        <span>
+                                            <strong>Nominee Details</strong>
+                                            <br/>
+                                            Nominee:
+                                            <span t-field="vehicle.insurance_nominee_id"/>
+                                            <br/>
+                                            Your Nominee is Your:
+                                            <span t-field="vehicle.your_nominee_is_your"/>
+                                            <br/>
+                                            Date of Birth:
+                                            <span t-field="vehicle.nominee_dob"/>
+                                        </span>
+                                    </td>
+                                    <td colspan="50%">
+                                        <span>
+                                            <strong>Payment Details</strong>
+                                            <br/>
+                                            Premium Type:
+                                            <span t-field="vehicle.premium_type"/>
+                                            <br/>
+                                            <t t-if="vehicle.premium_type == 'fixed'">
+                                                Total Policy Amount:
+                                                <span t-field="vehicle.total_policy_amount"/>
+                                                <br/>
+                                                Invoice:
+                                                <span t-field="vehicle.invoice_id"/>
+                                            </t>
+                                            <t t-else="">
+                                                Monthly Installment:
+                                                <span t-field="vehicle.monthly_installment"/>
+                                            </t>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table table-sm o_main_table" style="font-size: 13px; width: 100%;">
+                                <tr>
+                                    <td colspan="100%"
+                                        style="background-color: #F8F8F8; text-align: center; font-size: 15px;">
+                                        <strong>Vehicle Insurance Policy Details</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="100%" style="background-color: #f5f5f5;">
+                                        <strong>Insured Vehicle Details</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="33.3%">
+                                        Vehicle:
+                                        <span t-field="vehicle.vehicle_name"/>&#160;&#160;-&#160;
+                                        <span t-field="vehicle.model"/>
+                                    </td>
+                                    <td colspan="33.3%">
+                                        Year of MFG:
+                                        <span t-field="vehicle.year"/>
+                                    </td>
+                                    <td colspan="33.3%">
+                                        VIN No:
+                                        <span t-field="vehicle.vin_no"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="33.3%">
+                                        Registration No:
+                                        <span t-field="vehicle.reg_no"/>
+                                    </td>
+                                    <td colspan="33.3%">
+                                        Place of Registration:
+                                        <span t-field="vehicle.place_of_reg"/>
+                                    </td>
+                                    <td colspan="33.3%">
+                                        Usage of Vehicle:
+                                        <span t-field="vehicle.usage_of_vehicle"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="33.3%">
+                                        Cubic Capacity:
+                                        <span t-field="vehicle.cubic_capacity"/>
+                                    </td>
+                                    <td colspan="33.3%">
+                                        Setting Capacity:
+                                        <span t-field="vehicle.setting_capacity"/>
+                                    </td>
+                                    <td colspan="33.3%">
+                                        Coverage Type:
+                                        <span t-field="vehicle.coverage_type"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="100%" style="background-color: #f5f5f5;">
+                                        <strong>Vehicle Insured Declared Values</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">For the Vehicle:
+                                        <span t-field="vehicle.for_the_vehicle"/>
+                                    </td>
+                                    <td colspan="50%">For Trailer:
+                                        <span t-field="vehicle.for_trailer"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">Electric Accessories:
+                                        <span t-field="vehicle.electric_accessories"/>
+                                    </td>
+                                    <td colspan="50%">Non-Electric Accessories:
+                                        <span t-field="vehicle.non_electric_accessories"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">Value of CNG/LPG Kit:
+                                        <span t-field="vehicle.value_of_cng_lpg_kit"/>
+                                    </td>
+                                    <td colspan="50%">Total IDV Value:
+                                        <span t-field="vehicle.total_idv"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="100%"
+                                        style="background-color: #F8F8F8; text-align: center; font-size: 15px;">
+                                        <strong>Schedule of Premiums</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%" style="background-color: #f5f5f5">
+                                        <strong>Own Damage Premium</strong>
+                                    </td>
+                                    <td colspan="50%" style="background-color: #f5f5f5">
+                                        <strong>Third Party Liability Premium</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">Basic OD:
+                                        <span t-field="vehicle.basic_od"/>
+                                    </td>
+                                    <td colspan="50%">Basic TP Liability:
+                                        <span t-field="vehicle.basic_tp_liability"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">Package Premium:
+                                        <span t-field="vehicle.od_package_premium"/>
+                                    </td>
+                                    <td colspan="50%">PA Cover for Owner-Driver:
+                                        <span t-field="vehicle.pa_cover_for_owner_driver"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">Service Tax:
+                                        <span t-field="vehicle.service_tax"/>
+                                    </td>
+                                    <td colspan="50%">Package Premium:
+                                        <span t-field="vehicle.package_premium"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">
+                                        Special Discount:
+                                        <span t-field="vehicle.special_discount"/>
+                                    </td>
+                                    <td colspan="50%">
+                                        Liability Service Tax:
+                                        <span t-field="vehicle.liability_service_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="50%">Final Premium:
+                                        <span t-field="vehicle.final_premium"/>
+                                    </td>
+                                    <td colspan="50%">Total Premium:
+                                        <span t-field="vehicle.total_premium"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <t t-if="vehicle.premium_type == 'installment'">
+                                <table class="table table-sm o_main_table" style="font-size: 13px; width: 100%;">
+                                    <tr>
+                                        <td colspan="100%" style="text-align: center; background-color: #f5f5f5;">
+                                            <strong>Monthly Installment</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="40%">Name</th>
+                                        <th colspan="20%">Installment Date</th>
+                                        <th colspan="20%">Installment Amount</th>
+                                        <th colspan="20%">Invoice</th>
+                                    </tr>
+                                    <tr t-foreach="vehicle.insurance_emi_ids" t-as="emi">
+                                        <td colspan="40%">
+                                            <span t-field="emi.name"/>
+                                        </td>
+                                        <td colspan="20%">
+                                            <span t-field="emi.installment_date"/>
+                                        </td>
+                                        <td colspan="20%">
+                                            <span t-field="emi.installment_amount"/>
+                                        </td>
+                                        <td colspan="20%">
+                                            <span t-field="emi.invoice_id"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </t>
+                            <table class="table table-sm o_main_table" style="font-size: 13px; width: 100%;">
+                                <tr>
+                                    <td>
+                                        ➤&#160;Terms &amp; Conditions:
+                                        <br/>
+                                        <span t-field="vehicle.policy_terms_and_conditions"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ➤&#160;Limitation as to Use:
+                                        <br/>
+                                        <span t-field="vehicle.limitation_as_to_use"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ➤&#160;Limits of Liability:
+                                        <br/>
+                                        <span t-field="vehicle.limits_of_liability"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ➤&#160;Deductibles Under Section:
+                                        <br/>
+                                        <span t-field="vehicle.deductibles_under_section"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ➤&#160;Special Conditions:
+                                        <br/>
+                                        <span t-field="vehicle.special_conditions"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ➤&#160;Driving History:
+                                        <br/>
+                                        <span t-field="vehicle.driving_history"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                    </div>
+                </tr>
+            </t>
+        </t>
+    </template>
+    <record id="action_vehicle_insurance_report" model="ir.actions.report">
+        <field name="name">Vehicle Insurance Report</field>
+        <field name="model">insurance.information</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tk_insurance_management.vehicle_insurance_report_template</field>
+        <field name="report_file">tk_insurance_management.vehicle_insurance_report_template</field>
+        <field name="binding_model_id" ref="model_insurance_information"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+

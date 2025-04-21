@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="insurance_time_period_tree_view" model="ir.ui.view">
+            <field name="name">insurance.time.period.tree.view</field>
+            <field name="model">insurance.time.period</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="t_period"/>
+                    <field name="duration"/>
+                </tree>
+            </field>
+        </record>
+        <record id="insurance_time_period_search_view" model="ir.ui.view">
+            <field name="name">insurance.time.period.search.view</field>
+            <field name="model">insurance.time.period</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="t_period"/>
+                    <group string="Group By">
+                        <filter name="t_period" string="Time Period"
+                                context="{'group_by': 't_period'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_insurance_time_period" model="ir.actions.act_window">
+            <field name="name">Insurance Time Period</field>
+            <field name="res_model">insurance.time.period</field>
+            <field name="view_mode">tree,search</field>
+        </record>
+    </data>
+</odoo>

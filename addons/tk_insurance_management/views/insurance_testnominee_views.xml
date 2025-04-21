@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View for Brand Name -->
+    <record id="view_brand_name_tree" model="ir.ui.view">
+        <field name="name">brand.name.tree</field>
+        <field name="model">insurance.brand.name</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand_models"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_brand_name_form" model="ir.ui.view">
+        <field name="name">brand.name.form</field>
+        <field name="model">insurance.brand.name</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="brand_models"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- View for Brand Model -->
+    <record id="view_brand_model_tree" model="ir.ui.view">
+        <field name="name">brand.model.tree</field>
+        <field name="model">insurance.brand.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand_name_id"/>
+                <!-- <field name="brand_variants"/> -->
+                <field name="brand_variants_display" string="Brand Variants"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_brand_model_form" model="ir.ui.view">
+        <field name="name">brand.model.form</field>
+        <field name="model">insurance.brand.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="brand_name_id"/>
+                    <!-- <field name="brand_variants"/> -->
+                    <field name="brand_variants_display" string="Brand Variants"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- View for Brand Variant -->
+    <record id="view_brand_variant_tree" model="ir.ui.view">
+        <field name="name">brand.variant.tree</field>
+        <field name="model">insurance.brand.variant</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand_model_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_brand_variant_form" model="ir.ui.view">
+        <field name="name">brand.variant.form</field>
+        <field name="model">insurance.brand.variant</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="brand_model_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Brand Name -->
+    <record id="action_brand_name" model="ir.actions.act_window">
+        <field name="name">Brand Names</field>
+        <field name="res_model">insurance.brand.name</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action for Brand Model -->
+    <record id="action_brand_model" model="ir.actions.act_window">
+        <field name="name">Brand Models</field>
+        <field name="res_model">insurance.brand.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action for Brand Variant -->
+    <record id="action_brand_variant" model="ir.actions.act_window">
+        <field name="name">Brand Variants</field>
+        <field name="res_model">insurance.brand.variant</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <record id="view_insurance_brand_upload_form" model="ir.ui.view">
+        <field name="name">insurance.brand.upload.form</field>
+        <field name="model">insurance.brand.upload</field>
+        <field name="arch" type="xml">
+            <form string="Upload Insurance Brands">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="upload_file" filename="upload_file_name"/>
+                        <field name="upload_file_name"/>
+                        <button name="process_file" type="object" string="Upload"
+                                class="btn-primary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_insurance_brand_upload_tree" model="ir.ui.view">
+        <field name="name">insurance.brand.upload.tree</field>
+        <field name="model">insurance.brand.upload</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="upload_file_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_insurance_brand_upload" model="ir.actions.act_window">
+        <field name="name">Upload Insurance Brands</field>
+        <field name="res_model">insurance.brand.upload</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

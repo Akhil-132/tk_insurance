@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="insurance_buying_for_form_view" model="ir.ui.view">
+            <field name="name">insurance.buying.for.form.view</field>
+            <field name="model">insurance.buying.for</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="buying_for"/>
+                            <h1>
+                                <field name="buying_for" placeholder="e.g. Self"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Insurance Category">
+                                <field name="insurance_category_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="insurance_buying_for_tree_view" model="ir.ui.view">
+            <field name="name">insurance.buying.for.tree.view</field>
+            <field name="model">insurance.buying.for</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="buying_for"/>
+                    <field name="insurance_category_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="insurance_buying_for_search_view" model="ir.ui.view">
+            <field name="name">insurance.buying.for.search.view</field>
+            <field name="model">insurance.buying.for</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="buying_for"/>
+                    <group string="Group By">
+                        <filter name="insurance_category_id" string="Category"
+                                context="{'group_by': 'insurance_category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_insurance_buying_for" model="ir.actions.act_window">
+            <field name="name">Insurance Buying For</field>
+            <field name="res_model">insurance.buying.for</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+    </data>
+</odoo>
